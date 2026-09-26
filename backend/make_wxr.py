@@ -16,6 +16,12 @@ from seed import COMMON_INCLUDES, SPECIALTIES, TREATMENTS
 
 SITE = "https://www.sps-medcare.com"
 PHONE = "+91 99202 22362"
+LANDLINE = "011 41000493"
+EMAIL = "info@spsattestation.com"
+ADDRESS = (
+    "#123, 1st Floor, Vishal Tower, Janakpuri District Centre, "
+    "Near Janakpuri West Metro, New Delhi - 110058, India"
+)
 WXR_DATE = "2026-01-15 09:00:00"
 PUB_DATE = format_datetime(datetime(2026, 1, 15, 9, 0, 0, tzinfo=timezone.utc))
 
@@ -137,8 +143,9 @@ HOME_CONTENT = (
     )
     + h2("Talk to a Medical Coordinator")
     + para(
-        f'Call or WhatsApp <strong><a href="tel:+919920222362">{PHONE}</a></strong>, or email '
-        f'<a href="mailto:info@sps-medcare.com">info@sps-medcare.com</a>. Our desk is open 24/7 for '
+        f'Call or WhatsApp <strong><a href="tel:+919920222362">{PHONE}</a></strong>, our Delhi office '
+        f'on <a href="tel:+911141000493">{LANDLINE}</a>, or email '
+        f'<a href="mailto:{EMAIL}">{EMAIL}</a>. Our desk is open 24/7 for '
         "international patients across every time zone."
     )
 )
@@ -185,9 +192,9 @@ PAGES = [
             )
             + h2("Contact")
             + para(
-                f'Call or WhatsApp <strong>{PHONE}</strong>, email '
-                '<a href="mailto:info@sps-medcare.com">info@sps-medcare.com</a>, or visit our patient '
-                "desk at B-42, Okhla Industrial Area, Phase-II, New Delhi — 110020, India."
+                f'Call or WhatsApp <strong>{PHONE}</strong>, our office on <strong>{LANDLINE}</strong>, email '
+                f'<a href="mailto:{EMAIL}">{EMAIL}</a>, or visit our patient '
+                f"desk at {ADDRESS}."
             )
         ),
     },
@@ -234,7 +241,7 @@ PAGES = [
         "title": "Contact Us",
         "slug": "contact",
         "seo_title": f"Contact SPS Medcare — Free Medical Opinion | WhatsApp {PHONE}",
-        "seo_desc": f"Send your medical reports for a free specialist opinion and cost estimate. Call or WhatsApp {PHONE}, email info@sps-medcare.com. 24/7 international patient desk in Delhi NCR.",
+        "seo_desc": f"Send your medical reports for a free specialist opinion and cost estimate. Call or WhatsApp {PHONE}, office {LANDLINE}, email {EMAIL}. Janakpuri, New Delhi.",
         "content": (
             '<!-- wp:heading {"level":1} --><h1>Get a Free Medical Opinion &amp; Cost Estimate</h1><!-- /wp:heading -->'
             + para(
@@ -244,8 +251,9 @@ PAGES = [
             )
             + ul([
                 f'<strong>Phone / WhatsApp:</strong> <a href="tel:+919920222362">{PHONE}</a> (24/7 for international patients)',
-                '<strong>Email:</strong> <a href="mailto:info@sps-medcare.com">info@sps-medcare.com</a>',
-                "<strong>Patient desk:</strong> B-42, Okhla Industrial Area, Phase-II, New Delhi, Delhi NCR — 110020, India",
+                f'<strong>Email:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a>',
+                f"<strong>Office landline:</strong> <a href=\"tel:+911141000493\">{LANDLINE}</a>",
+                f"<strong>Office address:</strong> {ADDRESS}",
                 "<strong>Languages:</strong> English, Arabic, Bengali, Dari, Pashto, French, Russian, Swahili",
             ])
             + h2("What to Send Us")
@@ -299,7 +307,7 @@ def build() -> str:
         f"<wp:base_site_url>{SITE}</wp:base_site_url>"
         f"<wp:base_blog_url>{SITE}</wp:base_blog_url>"
         "<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[admin]]></wp:author_login>"
-        "<wp:author_email><![CDATA[info@sps-medcare.com]]></wp:author_email>"
+        f"<wp:author_email><![CDATA[{EMAIL}]]></wp:author_email>"
         "<wp:author_display_name><![CDATA[SPS Medcare]]></wp:author_display_name>"
         "<wp:author_first_name><![CDATA[]]></wp:author_first_name>"
         "<wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>"
@@ -365,7 +373,7 @@ def build() -> str:
             + ul(COMMON_INCLUDES)
             + para(
                 f'<strong>Get a free written opinion and exact cost for your case:</strong> WhatsApp your '
-                f'reports to <a href="tel:+919920222362">{PHONE}</a> or email info@sps-medcare.com.'
+                f'reports to <a href="tel:+919920222362">{PHONE}</a> or email {EMAIL}.'
             )
         )
         seo_title = f"{t['name']} in India — Cost {t['cost_india_usd']} | SPS Medcare"

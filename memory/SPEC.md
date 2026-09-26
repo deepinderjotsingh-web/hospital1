@@ -9,10 +9,12 @@ Deliverables: (1) this live React/FastAPI site, (2) a WordPress WXR XML import f
 > Note: an earlier iteration of this app was a hospital-equipment supplier. That positioning was
 > replaced on user instruction; the `categories`/`products` Mongo collections are dropped by seed.py.
 
-## Business facts (shown across the site)
+## Business facts (shown across the site) — REAL details, no placeholders
 - Mobile / WhatsApp: **9920222362** → displayed `+91 99202 22362`; `tel:+919920222362`, `https://wa.me/919920222362`
-- Email (placeholder): info@sps-medcare.com
-- Address (placeholder): B-42, Okhla Industrial Area, Phase-II, New Delhi, Delhi NCR - 110020, India
+- Office landline: **011 41000493** → `tel:+911141000493` (top bar, footer, Contact page card)
+- Email: **info@spsattestation.com**
+- Office address: **#123, 1st Floor, Vishal Tower, Janakpuri District Centre, Near Janakpuri West Metro, New Delhi - 110058**
+  (rendered multi-line from `SITE.addressLines`)
 - Positioning: zero facilitation fee, JCI & NABH accredited partner hospitals, 2,500+ patients, 12+ countries
 - Countries served (12) and languages (7) live in `frontend/src/lib/site.ts` (SITE, COUNTRIES, LANGUAGES, IMAGES)
 

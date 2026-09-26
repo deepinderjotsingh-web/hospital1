@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Clock, Globe2, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock, Globe2, Mail, MapPin, MessageCircle, Phone, PhoneCall } from "lucide-react";
 import { apiGet } from "@/lib/api";
 import type { Treatment } from "@/lib/api";
 import { COUNTRIES, LANGUAGES, SITE } from "@/lib/site";
@@ -113,6 +113,17 @@ export default function Footer() {
             </li>
             <li>
               <a
+                data-testid="footer-landline-link"
+                href={SITE.landlineHref}
+                aria-label={`Call SPS Medcare office at ${SITE.landlineDisplay}`}
+                className="flex items-center gap-2.5 transition-colors hover:text-teal-300"
+              >
+                <PhoneCall className="h-4 w-4 shrink-0" />
+                {SITE.landlineDisplay}
+              </a>
+            </li>
+            <li>
+              <a
                 href={`mailto:${SITE.email}`}
                 className="flex items-center gap-2.5 transition-colors hover:text-teal-300"
               >
@@ -122,7 +133,13 @@ export default function Footer() {
             </li>
             <li className="flex items-start gap-2.5">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-              {SITE.address}
+              <address className="not-italic">
+                {SITE.addressLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </address>
             </li>
             <li className="flex items-center gap-2.5">
               <Clock className="h-4 w-4 shrink-0" />

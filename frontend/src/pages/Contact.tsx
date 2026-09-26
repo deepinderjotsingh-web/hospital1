@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Clock, FileHeart, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
+import { Clock, FileHeart, Mail, MapPin, MessageCircle, Phone, PhoneCall, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -69,7 +69,7 @@ export default function Contact() {
     <>
       <Seo
         title="Contact SPS Medcare — Free Medical Opinion & Cost Estimate | WhatsApp +91 99202 22362"
-        description="Send your medical reports for a free specialist opinion and itemised cost estimate within 48 hours. Call or WhatsApp +91 99202 22362, email info@sps-medcare.com. 24/7 international patient desk."
+        description="Send your medical reports for a free specialist opinion and itemised cost estimate within 48 hours. Call or WhatsApp +91 99202 22362, office 011 41000493, email info@spsattestation.com. Janakpuri, New Delhi."
         path="/contact"
       />
 
@@ -137,6 +137,26 @@ export default function Contact() {
             </CardContent>
           </Card>
 
+          <Card data-testid="contact-landline-card">
+            <CardContent className="flex items-start gap-4 p-5">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-teal-50 text-primary">
+                <PhoneCall className="h-5 w-5" />
+              </span>
+              <div>
+                <h2 className="font-heading text-sm font-bold text-slate-900">Office landline</h2>
+                <a
+                  data-testid="contact-landline-link"
+                  href={SITE.landlineHref}
+                  aria-label={`Call SPS Medcare office at ${SITE.landlineDisplay}`}
+                  className="mt-1 block font-heading text-lg font-extrabold text-slate-800 transition-colors hover:text-primary"
+                >
+                  {SITE.landlineDisplay}
+                </a>
+                <p className="mt-1 text-xs text-slate-500">Delhi office · business hours</p>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardContent className="flex items-start gap-4 p-5">
               <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-teal-50 text-primary">
@@ -162,13 +182,17 @@ export default function Contact() {
                 <MapPin className="h-5 w-5" />
               </span>
               <div>
-                <h2 className="font-heading text-sm font-bold text-slate-900">Patient desk</h2>
-                <p
+                <h2 className="font-heading text-sm font-bold text-slate-900">Our office</h2>
+                <address
                   data-testid="contact-address-text"
-                  className="mt-1 text-sm font-semibold leading-relaxed text-slate-700"
+                  className="mt-1 text-sm font-semibold not-italic leading-relaxed text-slate-700"
                 >
-                  {SITE.address}
-                </p>
+                  {SITE.addressLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </address>
                 <p className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
                   <Clock className="h-3.5 w-3.5" /> {SITE.hours}
                 </p>

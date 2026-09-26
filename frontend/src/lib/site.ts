@@ -9,8 +9,17 @@ export const SITE = {
     "https://wa.me/919920222362?text=Hello%20SPS%20Medcare%2C%20I%20would%20like%20a%20free%20medical%20opinion%20and%20cost%20estimate.",
   whatsappText: (message?: string) =>
     `https://wa.me/919920222362${message ? `?text=${encodeURIComponent(message)}` : ""}`,
-  email: "info@sps-medcare.com",
-  address: "B-42, Okhla Industrial Area, Phase-II, New Delhi, Delhi NCR - 110020, India",
+  email: "info@spsattestation.com",
+  landlineDisplay: "011 41000493",
+  landlineHref: "tel:+911141000493",
+  address:
+    "#123, 1st Floor, Vishal Tower, Janakpuri District Centre, Near Janakpuri West Metro, New Delhi - 110058",
+  addressLines: [
+    "#123, 1st Floor, Vishal Tower",
+    "Janakpuri District Centre",
+    "Near Janakpuri West Metro",
+    "New Delhi - 110058, India",
+  ],
   hours: "24/7 international patient desk",
   cert: "JCI & NABH Accredited Partner Hospitals",
 } as const;
