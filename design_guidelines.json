@@ -1,0 +1,195 @@
+{
+  "typography": {
+    "heading_font": "Plus Jakarta Sans Variable",
+    "body_font": "DM Sans Variable",
+    "mono_font": "JetBrains Mono Variable",
+    "import_statement": "@import \"@fontsource-variable/plus-jakarta-sans\";\n@import \"@fontsource-variable/dm-sans\";\n@import \"@fontsource-variable/jetbrains-mono\";",
+    "scale_px": {
+      "display": 56,
+      "h1": 44,
+      "h2": 32,
+      "h3": 22,
+      "body": 16,
+      "caption": 14
+    },
+    "rules": {
+      "hero_h1": "text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight",
+      "section_h2": "text-2xl sm:text-3xl font-bold tracking-tight text-slate-900",
+      "card_h3": "text-lg sm:text-xl font-semibold tracking-tight text-slate-900",
+      "body": "text-base leading-relaxed text-slate-600 font-normal",
+      "badge_overline": "text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200"
+    }
+  },
+  "colors": {
+    "palette_name": "Clinical Precision & Organic Teal",
+    "accent": "#0D9488",
+    "on_accent": "#FFFFFF",
+    "surfaces": [
+      {
+        "name": "page",
+        "kind": "solid",
+        "bg": "#F8FAFC",
+        "on_bg": "#0F172A",
+        "on_bg_muted": "#475569",
+        "roles": {
+          "primary": "#0D9488",
+          "primary_hover": "#0F766E",
+          "secondary": "#0284C7",
+          "border": "#E2E8F0",
+          "card_bg": "#FFFFFF",
+          "success": "#16A34A",
+          "warning": "#D97706",
+          "error": "#DC2626"
+        }
+      },
+      {
+        "name": "header_glass",
+        "kind": "glass",
+        "contrast_against": "#FFFFFF",
+        "guarantee": "backdrop-blur-md bg-white/90 border-b border-slate-200/80 shadow-xs",
+        "on_bg": "#0F172A",
+        "on_bg_muted": "#475569"
+      },
+      {
+        "name": "hero_banner",
+        "kind": "solid",
+        "bg": "#F0FDFA",
+        "on_bg": "#0F172A",
+        "on_bg_muted": "#334155"
+      },
+      {
+        "name": "trust_dark_bar",
+        "kind": "solid",
+        "bg": "#0F172A",
+        "on_bg": "#F8FAFC",
+        "on_bg_muted": "#94A3B8",
+        "roles": {
+          "accent_highlight": "#2DD4BF"
+        }
+      },
+      {
+        "name": "product_card",
+        "kind": "solid",
+        "bg": "#FFFFFF",
+        "on_bg": "#0F172A",
+        "on_bg_muted": "#475569",
+        "roles": {
+          "tag_bg": "#ECFDF5",
+          "tag_text": "#065F46",
+          "price_text": "#0D9488"
+        }
+      },
+      {
+        "name": "footer_dark",
+        "kind": "solid",
+        "bg": "#0B132B",
+        "on_bg": "#F8FAFC",
+        "on_bg_muted": "#94A3B8"
+      },
+      {
+        "name": "whatsapp_float",
+        "kind": "solid",
+        "bg": "#25D366",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#F0FDF4"
+      }
+    ]
+  },
+  "entry_surfaces": {
+    "/": "split hero — value prop & quick RFQ trigger left, hospital equipment visual showcase & trust badges right",
+    "/products": "filter-enabled catalog view — search and category pills left/top, interactive product grid right",
+    "/products/:id": "split product detail — multi-angle image gallery & specs tab left, direct quote request & WhatsApp CTA panel right",
+    "/services": "grid layout — hospital turnkey installation, ICU setup, equipment calibration and AMC maintenance cards",
+    "/about": "editorial storytelling — medical compliance certifications, Delhi NCR warehouse footprint, and executive team",
+    "/contact": "split contact surface — Delhi NCR regional hub info & direct call line left, full RFQ inquiry form right",
+    "/export-data": "utility dashboard — XML WordPress WXR exporter + JSON export preview with instant download"
+  },
+  "layout_and_grids": {
+    "philosophy": "Asymmetric Swiss grid with clinical cleanliness, generous whitespace (p-8 to p-16), and layered depth rather than flat generic cards.",
+    "top_bar": "Deep slate/teal utility strip displaying Mobile: +91 9920222362, Email: info@sps-medcare.com, Delhi NCR Delivery, ISO 13485 & CE Certified",
+    "navbar": "Sticky crystal glass header with brand logo, nav links (Home, Products, Categories, Services, About, Contact), Quick Quote button, and direct call trigger",
+    "bento_features": "3-column asymmetric layout highlighting ICU Beds, Surgical Theatre Units, Diagnostic & Monitoring Equipments, and Hospital Furniture",
+    "quote_drawer": "Instant Slide-over RFQ drawer for rapid equipment quoting without navigating away"
+  },
+  "image_urls": {
+    "hero_hospital_suite": {
+      "url": "https://images.unsplash.com/photo-1710074213379-2a9c2653046a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxob3NwaXRhbCUyMG1lZGljYWwlMjBlcXVpcG1lbnQlMjBjbGluaWN8ZW58MHx8fHwxNzkwMzk2NTg0fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Modern hospital ward equipped with motorized patient bed and medical infrastructure",
+      "placement": "Hero section right showcase / About page facility banner"
+    },
+    "icu_beds_category": {
+      "url": "https://images.unsplash.com/photo-1538108149393-fbbd81895907?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwyfHxob3NwaXRhbCUyMGJlZCUyMGludGVuc2l2ZSUyMGNhcmV8ZW58MHx8fHwxNzkwMzk2NTg0fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Clean hospital recovery room with multi-function medical bed",
+      "placement": "Hospital Furniture / ICU Bed product category card"
+    },
+    "surgical_room": {
+      "url": "https://images.unsplash.com/photo-1762237798212-bcc000c00891?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHw0fHxzdXJnaWNhbCUyMGluc3RydW1lbnRzJTIwZG9jdG9yJTIwb3BlcmF0aW5nJTIwcm9vbXxlbnwwfHx8fDE3OTAzOTY1ODR8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Surgeons in operating theatre with precision surgical lighting and monitoring systems",
+      "placement": "Surgical Instruments & OT Equipment category / Turnkey OT Setup service banner"
+    },
+    "diagnostic_monitors": {
+      "url": "https://images.unsplash.com/photo-1766299892549-b56b257d1ddd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxob3NwaXRhbCUyMG1lZGljYWwlMjBlcXVpcG1lbnQlMjBjbGluaWN8ZW58MHx8fHwxNzkwMzk2NTg0fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Wall-mounted medical diagnostic sets, otoscope and patient monitors",
+      "placement": "Diagnostic Equipment & ICU Setup showcase"
+    },
+    "ward_care_suite": {
+      "url": "https://images.unsplash.com/photo-1512678080530-7760d81faba6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwxfHxob3NwaXRhbCUyMGJlZCUyMGludGVuc2l2ZSUyMGNhcmV8ZW58MHx8fHwxNzkwMzk2NTg0fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Premium hospital suite with patient recovery ergonomics",
+      "placement": "Hospital Furniture collection card"
+    },
+    "operating_lights": {
+      "url": "https://images.unsplash.com/photo-1770836037350-00139eb5df96?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxzdXJnaWNhbCUyMGluc3RydW1lbnRzJTIwZG9jdG9yJTIwb3BlcmF0aW5nJTIwcm9vbXxlbnwwfHx8fDE3OTAzOTY1ODR8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Overhead high-intensity surgical shadowless LED light fixtures in operating room",
+      "placement": "Operation Theatre Equipment & Lighting card"
+    }
+  },
+  "components_and_routes": {
+    "top_utility_bar": "frontend/src/components/layout/TopBar.tsx",
+    "navbar": "frontend/src/components/layout/Navbar.tsx",
+    "footer": "frontend/src/components/layout/Footer.tsx",
+    "floating_whatsapp": "frontend/src/components/common/FloatingWhatsApp.tsx",
+    "rfq_modal_drawer": "frontend/src/components/inquiry/RfqDrawer.tsx",
+    "product_card": "frontend/src/components/catalog/ProductCard.tsx",
+    "category_filter": "frontend/src/components/catalog/CategoryFilter.tsx",
+    "seo_meta_helper": "frontend/src/components/seo/SeoHead.tsx",
+    "pages": {
+      "home": "frontend/src/pages/Home.tsx",
+      "products": "frontend/src/pages/Products.tsx",
+      "product_detail": "frontend/src/pages/ProductDetail.tsx",
+      "services": "frontend/src/pages/Services.tsx",
+      "about": "frontend/src/pages/About.tsx",
+      "contact": "frontend/src/pages/Contact.tsx",
+      "export_data": "frontend/src/pages/ExportData.tsx"
+    }
+  },
+  "motion_and_interactions": {
+    "hover_lift": "hover:-translate-y-1 transition-transform duration-200 ease-out hover:shadow-lg",
+    "button_press": "active:scale-98 transition-transform duration-100",
+    "subtle_fade_in": "animate-in fade-in-50 duration-300",
+    "whatsapp_pulse": "relative inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"
+  },
+  "accessibility": {
+    "wcag_compliance": "WCAG AA (4.5:1 minimum on all body copy and badges)",
+    "aria_labels": "All phone click-to-call links and WhatsApp floating buttons have explicit aria-label='Contact SPS Medcare at +91 9920222362'",
+    "focus_rings": "focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 outline-none",
+    "test_attributes": "All CTA buttons, search inputs, category filters, and inquiry form fields must include kebab-case data-testid attributes"
+  },
+  "data_and_seo": {
+    "phone": "+91 9920222362",
+    "phone_display": "9920222362",
+    "whatsapp_link": "https://wa.me/919920222362?text=Hello%20SPS%20Medcare%2C%20I%20would%20like%20to%20inquire%20about%20hospital%20equipment",
+    "email": "info@sps-medcare.com",
+    "address": "B-42, Okhla Industrial Area, Phase-II, New Delhi, Delhi NCR - 110020, India",
+    "iso_certification": "ISO 13485:2016 & CE Certified Medical Supplier",
+    "wxr_export_support": "Full WordPress WXR XML export with <wp:post_type>product</wp:post_type>, custom taxonomy for categories, pricing, specifications, and featured images."
+  },
+  "instructions_to_main_agent": [
+    "Follow the Teal (#0D9488) and Crisp White theme. Avoid dark saturated purple/violet gradients.",
+    "Prominently place mobile 9920222362 and WhatsApp wa.me/919920222362 across TopBar, Navbar, Hero, Floating Action Button, Product Detail and Contact forms.",
+    "Build a rich product catalog with categories (ICU & Electric Beds, OT Equipment, Diagnostic Monitors, Surgical Instruments, Hospital Furniture, Emergency & Mobility).",
+    "Seed at least 12-16 realistic hospital medical equipment products with technical specifications, model numbers, certifications, warranty, and RFQ quick triggers.",
+    "Implement the WordPress WXR XML export page (/export-data) allowing immediate download of sps-medcare-catalog.xml with valid WXR structure for seamless CMS import.",
+    "Ensure SEO-friendly schema markup (Organization, MedicalBusiness, Product, BreadcrumbList) on all key routes.",
+    "Ensure every interactive element has a data-testid attribute for end-to-end testing."
+  ]
+}
