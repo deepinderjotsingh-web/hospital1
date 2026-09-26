@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
+  { to: "/export-data", label: "Download" },
 ];
 
 export default function Navbar() {

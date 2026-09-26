@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Download, FileCode2, Globe2 } from "lucide-react";
+import { Download, FileCode2, Globe2, Package } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -20,6 +20,14 @@ const STEPS = [
   "In WordPress admin, go to Tools → Import → WordPress and install the importer plugin if prompted.",
   "Upload sps-medcare-wordpress-import.xml, assign posts to your admin user, and tick “Download and import file attachments”.",
   "Done — all pages, treatment pages, cost-guide blog posts, images and SEO meta import in one pass. Then set your menu under Appearance → Menus.",
+];
+
+const PACKAGE_FILES = [
+  ["README.txt", "Step-by-step WordPress import guide with your contact details"],
+  ["sps-medcare-wordpress-import.xml", "The full website content (WXR 1.2) — pages, treatments, blog posts, images"],
+  ["treatments.csv", "All 10 treatments with costs and hospitals, as a spreadsheet"],
+  ["sitemap.xml", "Ready-to-upload sitemap for Google Search Console"],
+  ["robots.txt", "Search-engine crawl rules"],
 ];
 
 const CONTENTS = [
@@ -45,27 +53,84 @@ export default function ExportData() {
   return (
     <>
       <Seo
-        title="WordPress Import File — SPS Medcare Website Data as WXR XML"
-        description="Download the complete SPS Medcare medical tourism website content as a WordPress WXR XML import file: pages, treatment pages, cost-guide blog posts, images and SEO meta."
+        title="Download Website Content — WordPress Import Package | SPS Medcare"
+        description="Download the complete SPS Medcare website content: WordPress WXR XML import file, import guide, treatment price list CSV, sitemap and robots.txt in one ZIP package."
         path="/export-data"
       />
 
       <section className="border-b border-slate-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-12">
-          <p className="text-xs font-bold uppercase tracking-wider text-teal-700">Data Export</p>
+          <p className="text-xs font-bold uppercase tracking-wider text-teal-700">Download</p>
           <h1 className="mt-2 font-heading text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-            WordPress Import File (WXR XML)
+            Download Your Website Content
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-            The entire SPS Medcare website content — pages, treatment pages with cost comparisons,
-            SEO cost-guide blog posts, images and search-engine meta — packaged as a
-            WordPress-compatible WXR 1.2 file.
+            Everything on this website — pages, treatment pages with cost comparisons, SEO blog
+            posts, images and search-engine meta — packaged so you can move it onto WordPress
+            hosting for sps-medcare.com whenever you are ready.
           </p>
         </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-12">
-        <Card data-testid="export-card" className="border-teal-100">
+        {/* Primary: full package */}
+        <Card data-testid="download-package-card" className="border-primary/30 bg-teal-50/40 shadow-sm">
+          <CardContent className="p-6 sm:p-8">
+            <div className="flex flex-wrap items-start justify-between gap-5">
+              <div className="flex items-start gap-4">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground">
+                  <Package className="h-6 w-6" />
+                </span>
+                <div>
+                  <p className="inline-flex rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground">
+                    Recommended
+                  </p>
+                  <h2 className="mt-1.5 font-heading text-lg font-bold text-slate-900">
+                    Complete Website Package (.zip)
+                  </h2>
+                  <p className="mt-1 text-sm text-slate-600">
+                    WordPress import file + import guide + treatment price list + sitemap + robots.txt
+                  </p>
+                  <p className="mt-1 font-mono text-xs text-slate-500">
+                    sps-medcare-website-package.zip · ~20 KB · 5 files
+                  </p>
+                </div>
+              </div>
+              <a
+                data-testid="download-package-button"
+                href="/sps-medcare-website-package.zip"
+                download="sps-medcare-website-package.zip"
+                className={buttonVariants({ size: "lg" })}
+              >
+                <Download className="h-4 w-4" /> Download Full Package
+              </a>
+            </div>
+
+            <div className="mt-6 overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+              <Table data-testid="package-files-table">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-2/5">File</TableHead>
+                    <TableHead>What it is</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {PACKAGE_FILES.map(([file, detail]) => (
+                    <TableRow key={file}>
+                      <TableCell className="font-mono text-xs font-semibold text-slate-900">
+                        {file}
+                      </TableCell>
+                      <TableCell className="text-sm text-slate-600">{detail}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Secondary: XML only */}
+        <Card data-testid="export-card" className="mt-6 border-teal-100">
           <CardContent className="p-6 sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-5">
               <div className="flex items-start gap-4">
@@ -74,10 +139,11 @@ export default function ExportData() {
                 </span>
                 <div>
                   <h2 className="font-heading text-base font-bold text-slate-900">
-                    sps-medcare-wordpress-import.xml
+                    WordPress Import File only (.xml)
                   </h2>
                   <p className="mt-0.5 text-xs text-slate-500">
-                    WXR 1.2 · ~130 KB · images sideloaded from URLs by the importer
+                    sps-medcare-wordpress-import.xml · WXR 1.2 · ~130 KB · images sideloaded by the
+                    importer
                   </p>
                 </div>
               </div>
@@ -85,7 +151,7 @@ export default function ExportData() {
                 data-testid="export-download-button"
                 href="/sps-medcare-wordpress-import.xml"
                 download="sps-medcare-wordpress-import.xml"
-                className={buttonVariants({ size: "lg" })}
+                className={buttonVariants({ variant: "outline", size: "lg" })}
               >
                 <Download className="h-4 w-4" /> Download XML
               </a>

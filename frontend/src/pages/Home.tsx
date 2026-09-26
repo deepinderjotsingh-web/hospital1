@@ -5,6 +5,7 @@ import {
   BadgeCheck,
   Car,
   Clock,
+  Download,
   FileText,
   Globe2,
   Home as HomeIcon,
@@ -415,6 +416,32 @@ export default function Home() {
               </CardContent>
             </Card>
           ))}
+        </div>
+      </section>
+
+      {/* Download website content strip */}
+      <section data-testid="download-strip" className="border-y border-teal-100 bg-teal-50/60">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-5 px-4 py-6">
+          <div className="flex items-start gap-3.5">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+              <Download className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="font-heading text-sm font-bold text-slate-900">
+                Website owner? Download this site's content
+              </p>
+              <p className="mt-0.5 text-xs text-slate-600">
+                WordPress import file, treatment price list, sitemap and setup guide — one ZIP
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/export-data"
+            data-testid="download-strip-button"
+            className={buttonVariants({ size: "sm" })}
+          >
+            Go to Downloads <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 
