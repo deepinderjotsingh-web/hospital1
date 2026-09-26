@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Download, FileCode2, Globe2, Package } from "lucide-react";
+import { Download, FileCode2, FileSpreadsheet, Globe2, Package } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -98,8 +98,7 @@ export default function ExportData() {
               </div>
               <a
                 data-testid="download-package-button"
-                href="/sps-medcare-website-package.zip"
-                download="sps-medcare-website-package.zip"
+                href="/api/download/website-package"
                 className={buttonVariants({ size: "lg" })}
               >
                 <Download className="h-4 w-4" /> Download Full Package
@@ -149,8 +148,7 @@ export default function ExportData() {
               </div>
               <a
                 data-testid="export-download-button"
-                href="/sps-medcare-wordpress-import.xml"
-                download="sps-medcare-wordpress-import.xml"
+                href="/api/download/wordpress-xml"
                 className={buttonVariants({ variant: "outline", size: "lg" })}
               >
                 <Download className="h-4 w-4" /> Download XML
@@ -174,6 +172,17 @@ export default function ExportData() {
                 <p className="font-heading text-2xl font-extrabold text-primary">6</p>
                 <p className="text-xs font-medium text-slate-500">Site pages</p>
               </div>
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-slate-100 pt-5 text-sm text-slate-600">
+              <span>Just want the price list?</span>
+              <a
+                data-testid="download-csv-button"
+                href="/api/download/treatments-csv"
+                className="inline-flex items-center gap-1.5 font-semibold text-primary transition-colors hover:text-teal-700"
+              >
+                <FileSpreadsheet className="h-4 w-4" /> Download treatments.csv
+              </a>
             </div>
           </CardContent>
         </Card>

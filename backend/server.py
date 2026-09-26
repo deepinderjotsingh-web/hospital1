@@ -19,6 +19,7 @@ load_dotenv(ROOT_DIR / '.env')
 from lib.db import client, db, ensure_indexes
 
 from routers.catalog import router as catalog_router
+from routers.downloads import router as downloads_router
 from routers.inquiries import router as inquiries_router
 
 
@@ -66,6 +67,7 @@ async def get_status_checks():
 # Resource routers (all mounted under the /api prefix)
 api_router.include_router(catalog_router)
 api_router.include_router(inquiries_router)
+api_router.include_router(downloads_router)
 
 # Include the router in the main app
 app.include_router(api_router)

@@ -12,7 +12,7 @@ import io
 import zipfile
 from pathlib import Path
 
-from make_wxr import ADDRESS, EMAIL, LANDLINE, PHONE
+from make_wxr import ADDRESS, EMAIL, LANDLINE, PHONE, build as build_wxr
 from seed import SPECIALTIES, TREATMENTS
 
 PUBLIC = Path(__file__).parent.parent / "frontend" / "public"
@@ -123,23 +123,29 @@ def treatments_csv() -> str:
     return buf.getvalue()
 
 
-def main() -> None:
-    xml_path = PUBLIC / XML_NAME
-    if not xml_path.exists():
-        raise SystemExit(f"{XML_NAME} missing — run `python make_wxr.py` first")
+def build_zip_bytes() -> bytes:
+    """Build the full website package ZIP entirely in memory.
 
-    with zipfile.ZipFile(ZIP_PATH, "w", zipfile.ZIP_DEFLATED) as zf:
+    Used by the /api/download/website-package endpoint so the file always
+    exists in production, independent of build artifacts or .gitignore.
+    """
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
         zf.writestr("README.txt", README)
-        zf.write(xml_path, XML_NAME)
+        zf.writestr(XML_NAME, build_wxr())
         zf.writestr("treatments.csv", treatments_csv())
         for extra in ("sitemap.xml", "robots.txt"):
             path = PUBLIC / extra
             if path.exists():
-                zf.write(path, extra)
+                zf.writestr(extra, path.read_text(encoding="utf-8"))
+    return buf.getvalue()
 
-    size_kb = ZIP_PATH.stat().st_size / 1024
+
+def main() -> None:
+    data = build_zip_bytes()
+    ZIP_PATH.write_bytes(data)
     print(
-        f"Wrote {ZIP_PATH} ({size_kb:.0f} KB) — "
+        f"Wrote {ZIP_PATH} ({len(data) / 1024:.0f} KB) — "
         f"{len(TREATMENTS)} treatments, {len(SPECIALTIES)} specialties"
     )
 
