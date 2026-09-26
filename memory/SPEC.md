@@ -62,3 +62,12 @@ None — public marketing site. No credentials needed (nothing to log into).
 - 5 of 10 treatments are `featured: true`; home page shows the first 6 treatments regardless.
 - Search "cancer" → 1 result; specialty pill "Cardiology" → 1 result; all treatments → 10.
 - Treatment slugs are SEO phrases, e.g. `/treatments/cardiac-treatment-in-india`.
+
+## WordPress PHP Theme (v1.0.0)
+Source: `/app/wordpress-theme/sps-medcare/` (28 files). Custom theme matching the React design:
+templates (index, front-page, page, single, archive-sps_treatment, taxonomy-sps_specialty,
+single-sps_treatment, page-treatments, page-contact, search, searchform, sidebar, 404, header, footer,
+template-parts/treatment-card), `inc/` (post-types, meta-boxes, customizer, enquiry, seo, icons, helpers,
+demo-content), `assets/js/theme.js`, `style.css`, `readme.txt`.
+Delivered via `GET /api/download/wordpress-theme` (zipped in memory, rooted at `sps-medcare/`) and the
+"Download Theme" button on /export-data. Never ship zips as static frontend files (.gitignore excludes them).

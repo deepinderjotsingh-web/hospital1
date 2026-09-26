@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Download, FileCode2, FileSpreadsheet, Globe2, Package } from "lucide-react";
+import { Download, FileCode2, FileSpreadsheet, Globe2, Package, Paintbrush } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -124,6 +124,39 @@ export default function ExportData() {
                   ))}
                 </TableBody>
               </Table>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* WordPress PHP theme */}
+        <Card data-testid="theme-card" className="mt-6 border-teal-100">
+          <CardContent className="p-6 sm:p-8">
+            <div className="flex flex-wrap items-center justify-between gap-5">
+              <div className="flex items-start gap-4">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-slate-900 text-white">
+                  <Paintbrush className="h-6 w-6" />
+                </span>
+                <div>
+                  <h2 className="font-heading text-base font-bold text-slate-900">
+                    WordPress Theme in PHP (.zip)
+                  </h2>
+                  <p className="mt-1 text-sm text-slate-600">
+                    The exact design of this website as an installable WordPress theme — PHP
+                    templates, a Treatments custom post type with cost fields, customizer settings
+                    for your phone and address, enquiry form and SEO schema.
+                  </p>
+                  <p className="mt-1 font-mono text-xs text-slate-500">
+                    sps-medcare-wordpress-theme.zip · Appearance → Themes → Add New → Upload
+                  </p>
+                </div>
+              </div>
+              <a
+                data-testid="download-theme-button"
+                href="/api/download/wordpress-theme"
+                className={buttonVariants({ variant: "outline", size: "lg" })}
+              >
+                <Download className="h-4 w-4" /> Download Theme
+              </a>
             </div>
           </CardContent>
         </Card>
