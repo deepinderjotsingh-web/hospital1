@@ -1,48 +1,48 @@
-"""Catalog routes: categories and products."""
+"""Catalog routes: medical specialties and treatments."""
 
 from fastapi import APIRouter, HTTPException, Query
 
 from lib.db import db
-from models.catalog import Category, Product
+from models.catalog import Specialty, Treatment
 
 router = APIRouter()
 
 
-@router.get("/categories", response_model=list[Category])
-async def list_categories():
-    cats = await db.categories.find().sort("sort_order", 1).to_list(100)
-    counts = await db.products.aggregate(
-        [{"$group": {"_id": "$category_slug", "count": {"$sum": 1}}}]
+@router.get("/specialties", response_model=list[Specialty])
+async def list_specialties():
+    specs = await db.specialties.find().sort("sort_order", 1).to_list(100)
+    counts = await db.treatments.aggregate(
+        [{"$group": {"_id": "$specialty_slug", "count": {"$sum": 1}}}]
     ).to_list(100)
     count_map = {c["_id"]: c["count"] for c in counts}
-    return [Category(**c, product_count=count_map.get(c["slug"], 0)) for c in cats]
+    return [Specialty(**s, treatment_count=count_map.get(s["slug"], 0)) for s in specs]
 
 
-@router.get("/products", response_model=list[Product])
-async def list_products(
-    category: str | None = Query(default=None),
+@router.get("/treatments", response_model=list[Treatment])
+async def list_treatments(
+    specialty: str | None = Query(default=None),
     q: str | None = Query(default=None),
     featured: bool | None = Query(default=None),
     limit: int = Query(default=60, le=200),
 ):
     query: dict = {}
-    if category:
-        query["category_slug"] = category
+    if specialty:
+        query["specialty_slug"] = specialty
     if featured is not None:
         query["featured"] = featured
     if q:
         query["$or"] = [
             {"name": {"$regex": q, "$options": "i"}},
-            {"sku": {"$regex": q, "$options": "i"}},
+            {"specialty_name": {"$regex": q, "$options": "i"}},
             {"short_desc": {"$regex": q, "$options": "i"}},
         ]
-    docs = await db.products.find(query).sort("created_at", 1).to_list(limit)
-    return [Product(**d) for d in docs]
+    docs = await db.treatments.find(query).sort("created_at", 1).to_list(limit)
+    return [Treatment(**d) for d in docs]
 
 
-@router.get("/products/{slug}", response_model=Product)
-async def get_product(slug: str):
-    doc = await db.products.find_one({"slug": slug})
+@router.get("/treatments/{slug}", response_model=Treatment)
+async def get_treatment(slug: str):
+    doc = await db.treatments.find_one({"slug": slug})
     if not doc:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return Product(**doc)
+        raise HTTPException(status_code=404, detail="Treatment not found")
+    return Treatment(**doc)

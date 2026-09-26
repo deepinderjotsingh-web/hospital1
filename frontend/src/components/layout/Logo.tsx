@@ -11,7 +11,7 @@ export function Logo() {
           SPS Medcare
         </span>
         <span className="block text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
-          Medical Equipment &amp; Supplies
+          Medical Tourism · India
         </span>
       </span>
     </span>

@@ -45,37 +45,34 @@ export const apiPatch = <T>(path: string, body?: JsonBody) =>
   request<T>("PATCH", path, body ?? null);
 export const apiDelete = <T>(path: string) => request<T>("DELETE", path);
 
-// ——— SPS Medcare catalog models (mirrors backend/models/catalog.py) ———
+// ——— SPS Medcare medical-tourism models (mirrors backend/models/catalog.py) ———
 
-export interface Category {
+export interface Specialty {
   id: string;
   slug: string;
   name: string;
-  tagline: string;
-  description: string;
-  image_url: string;
   sort_order: number;
-  product_count: number;
+  treatment_count: number;
 }
 
-export interface Product {
+export interface Treatment {
   id: string;
   slug: string;
   name: string;
-  sku: string;
-  category_slug: string;
-  brand: string;
+  specialty_slug: string;
+  specialty_name: string;
   short_desc: string;
   description: string;
-  price: number;
-  price_unit: string;
-  moq: string;
-  features: string[];
-  specs: Record<string, string>;
-  warranty: string;
-  certification: string;
+  cost_india_usd: string;
+  cost_west_usd: string;
+  savings_percent: number;
+  hospital_stay: string;
+  stay_in_india: string;
+  success_rate: string;
+  procedures: string[];
+  includes: string[];
+  top_hospitals: string[];
   image_url: string;
-  in_stock: boolean;
   featured: boolean;
   created_at: string;
 }
@@ -85,8 +82,8 @@ export interface Inquiry {
   name: string;
   phone: string;
   email: string;
-  city: string;
+  country: string;
+  treatment_name: string;
   message: string;
-  product_name: string;
   created_at: string;
 }

@@ -7,7 +7,7 @@ import { Logo } from "./Logo";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
-  { to: "/products", label: "Products" },
+  { to: "/treatments", label: "Treatments" },
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
@@ -17,7 +17,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 shadow-xs backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 shadow-xs backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" data-testid="nav-logo-link" aria-label="SPS Medcare home">
           <Logo />
@@ -55,9 +55,9 @@ export default function Navbar() {
           <Link
             to="/contact"
             data-testid="nav-quote-button"
-            className={buttonVariants({ variant: "secondary", size: "sm" }) + " hidden sm:inline-flex"}
+            className={buttonVariants({ size: "sm" }) + " hidden sm:inline-flex"}
           >
-            Get a Quote
+            Get Free Opinion
           </Link>
           <Button
             variant="ghost"
@@ -95,9 +95,9 @@ export default function Navbar() {
           <a
             href={SITE.phoneHref}
             data-testid="nav-mobile-call-button"
-            className={buttonVariants({ variant: "outline", size: "sm" }) + " mt-2 w-full"}
+            className={buttonVariants({ size: "sm" }) + " mt-2 w-full"}
           >
-            <Phone className="h-4 w-4 text-primary" />
+            <Phone className="h-4 w-4" />
             Call {SITE.phoneDisplay}
           </a>
         </div>

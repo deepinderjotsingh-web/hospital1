@@ -18,9 +18,10 @@ export default function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contact SPS Medcare at +91 9920222362 on WhatsApp"
-      className="animate-whatsapp-ring fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25d366] text-white shadow-lg transition-transform duration-200 hover:scale-105 active:scale-95"
+      className="animate-whatsapp-ring fixed bottom-5 right-5 z-50 flex items-center gap-2.5 rounded-full bg-[#22c55e] px-4 py-3 text-white shadow-2xl transition-transform duration-200 hover:scale-105 active:scale-95"
     >
-      <WhatsAppGlyph className="h-7 w-7" />
+      <WhatsAppGlyph className="h-6 w-6 shrink-0" />
+      <span className="hidden text-sm font-semibold sm:inline">Chat with a Coordinator</span>
     </a>
   );
 }

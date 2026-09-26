@@ -1,35 +1,52 @@
 import { useQuery } from "@tanstack/react-query";
-import { Download, FileJson, PackageCheck } from "lucide-react";
+import { Download, FileCode2, Globe2 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import Seo from "@/components/Seo";
 import { apiGet } from "@/lib/api";
-import type { Category, Product } from "@/lib/api";
+import type { Specialty, Treatment } from "@/lib/api";
+import { COUNTRIES } from "@/lib/site";
 
 const STEPS = [
-  "Install WordPress and (recommended) the WooCommerce plugin on your hosting.",
-  "In WordPress admin, go to Tools → Import → WordPress and install the importer if asked.",
-  "Upload sps-medcare-wordpress-import.xml, assign the posts to your admin user, and tick “Download and import file attachments”.",
-  "Done — pages, categories, all 20 products with images, SKUs and prices import in one pass. Set your menu under Appearance → Menus.",
+  "Install WordPress on your hosting for sps-medcare.com (any theme works; a medical or business theme suits best).",
+  "In WordPress admin, go to Tools → Import → WordPress and install the importer plugin if prompted.",
+  "Upload sps-medcare-wordpress-import.xml, assign posts to your admin user, and tick “Download and import file attachments”.",
+  "Done — all pages, treatment pages, cost-guide blog posts, images and SEO meta import in one pass. Then set your menu under Appearance → Menus.",
+];
+
+const CONTENTS = [
+  ["6 pages", "Home, About Us, Treatments, Services, Contact Us, Countries We Serve"],
+  ["10 treatment pages", "One per specialty with cost comparison, procedures, hospitals and inclusions"],
+  ["10 blog posts", "SEO cost-guide articles (e.g. “Cardiac Surgery in India: Cost, Hospitals and Recovery Time”)"],
+  ["10 images", "Treatment images as attachments, sideloaded by the importer and set as featured images"],
+  ["10 categories", "Medical specialties as WordPress categories"],
+  ["SEO meta", "Yoast SEO and Rank Math title + description keys on every page and post"],
 ];
 
 export default function ExportData() {
-  const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => apiGet<Category[]>("/categories"),
+  const { data: specialties } = useQuery({
+    queryKey: ["specialties"],
+    queryFn: () => apiGet<Specialty[]>("/specialties"),
   });
 
-  const { data: products } = useQuery({
-    queryKey: ["products", "all"],
-    queryFn: () => apiGet<Product[]>("/products"),
+  const { data: treatments } = useQuery({
+    queryKey: ["treatments", "all"],
+    queryFn: () => apiGet<Treatment[]>("/treatments"),
   });
 
   return (
     <>
       <Seo
-        title="WordPress Import File — Export the SPS Medcare Catalog as WXR XML"
-        description="Download the full SPS Medcare catalog as a WordPress WXR XML import file — 5 pages, 6 categories and 20 products with images, SKUs, prices and SEO meta."
+        title="WordPress Import File — SPS Medcare Website Data as WXR XML"
+        description="Download the complete SPS Medcare medical tourism website content as a WordPress WXR XML import file: pages, treatment pages, cost-guide blog posts, images and SEO meta."
         path="/export-data"
       />
 
@@ -40,8 +57,9 @@ export default function ExportData() {
             WordPress Import File (WXR XML)
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-            The entire SPS Medcare website data — pages, product categories and every product with
-            its image, price, SKU and SEO meta — packaged as a WordPress-compatible WXR 1.2 file.
+            The entire SPS Medcare website content — pages, treatment pages with cost comparisons,
+            SEO cost-guide blog posts, images and search-engine meta — packaged as a
+            WordPress-compatible WXR 1.2 file.
           </p>
         </div>
       </section>
@@ -52,14 +70,14 @@ export default function ExportData() {
             <div className="flex flex-wrap items-center justify-between gap-5">
               <div className="flex items-start gap-4">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-teal-50 text-primary">
-                  <FileJson className="h-6 w-6" />
+                  <FileCode2 className="h-6 w-6" />
                 </span>
                 <div>
                   <h2 className="font-heading text-base font-bold text-slate-900">
                     sps-medcare-wordpress-import.xml
                   </h2>
                   <p className="mt-0.5 text-xs text-slate-500">
-                    WXR 1.2 · ~140 KB · images referenced by URL and sideloaded by the importer
+                    WXR 1.2 · ~130 KB · images sideloaded from URLs by the importer
                   </p>
                 </div>
               </div>
@@ -76,24 +94,50 @@ export default function ExportData() {
             <div className="mt-6 grid gap-4 sm:grid-cols-3" data-testid="export-counts">
               <div className="rounded-xl border border-slate-200/80 bg-slate-50/60 p-4 text-center">
                 <p className="font-heading text-2xl font-extrabold text-primary">
-                  {products ? products.length : "—"}
+                  {treatments ? treatments.length : "—"}
                 </p>
-                <p className="text-xs font-medium text-slate-500">Products</p>
+                <p className="text-xs font-medium text-slate-500">Treatments</p>
               </div>
               <div className="rounded-xl border border-slate-200/80 bg-slate-50/60 p-4 text-center">
                 <p className="font-heading text-2xl font-extrabold text-primary">
-                  {categories ? categories.length : "—"}
+                  {specialties ? specialties.length : "—"}
                 </p>
-                <p className="text-xs font-medium text-slate-500">Categories</p>
+                <p className="text-xs font-medium text-slate-500">Specialties</p>
               </div>
               <div className="rounded-xl border border-slate-200/80 bg-slate-50/60 p-4 text-center">
-                <p className="font-heading text-2xl font-extrabold text-primary">5</p>
-                <p className="text-xs font-medium text-slate-500">Pages (incl. Home, About, Contact)</p>
+                <p className="font-heading text-2xl font-extrabold text-primary">6</p>
+                <p className="text-xs font-medium text-slate-500">Site pages</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
+        {/* Contents */}
+        <div data-testid="export-contents" className="mt-10">
+          <h2 className="font-heading text-xl font-bold tracking-tight text-slate-900">
+            What's inside the file
+          </h2>
+          <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200/80">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-1/3">Content</TableHead>
+                  <TableHead>Details</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {CONTENTS.map(([label, detail]) => (
+                  <TableRow key={label}>
+                    <TableCell className="font-semibold text-slate-900">{label}</TableCell>
+                    <TableCell className="text-slate-600">{detail}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+
+        {/* Steps */}
         <div data-testid="export-steps" className="mt-10">
           <h2 className="font-heading text-xl font-bold tracking-tight text-slate-900">
             How to import into WordPress
@@ -108,32 +152,31 @@ export default function ExportData() {
               </li>
             ))}
           </ol>
-          <p className="mt-4 text-xs leading-relaxed text-slate-500">
-            The file includes Yoast SEO and Rank Math meta keys (title + description) for every page
-            and product, WooCommerce product meta (SKU, regular price, stock status), product
-            categories as the <code>product_cat</code> taxonomy, and each product image as an
-            attachment with alt text.
-          </p>
         </div>
 
-        {categories && (
+        {/* Treatments listing */}
+        {treatments && (
           <div className="mt-10">
-            <h2 className="flex items-center gap-2 font-heading text-xl font-bold tracking-tight text-slate-900">
-              <PackageCheck className="h-5 w-5 text-primary" /> Catalog included in the file
+            <h2 className="font-heading text-xl font-bold tracking-tight text-slate-900">
+              Treatments included in the export
             </h2>
             <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200/80">
-              <Table data-testid="export-categories-table">
+              <Table data-testid="export-treatments-table">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-2/3">Category</TableHead>
-                    <TableHead className="text-right">Products</TableHead>
+                    <TableHead>Treatment</TableHead>
+                    <TableHead>Specialty</TableHead>
+                    <TableHead className="text-right">Cost in India</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {categories.map((cat) => (
-                    <TableRow key={cat.slug}>
-                      <TableCell className="font-medium text-slate-900">{cat.name}</TableCell>
-                      <TableCell className="text-right text-slate-500">{cat.product_count}</TableCell>
+                  {treatments.map((t) => (
+                    <TableRow key={t.slug}>
+                      <TableCell className="font-medium text-slate-900">{t.name}</TableCell>
+                      <TableCell className="text-slate-500">{t.specialty_name}</TableCell>
+                      <TableCell className="text-right font-semibold text-primary">
+                        {t.cost_india_usd}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -141,6 +184,17 @@ export default function ExportData() {
             </div>
           </div>
         )}
+
+        <div className="mt-10 rounded-2xl border border-slate-200/80 bg-slate-50/60 p-6">
+          <h2 className="flex items-center gap-2 font-heading text-base font-bold text-slate-900">
+            <Globe2 className="h-4 w-4 text-primary" /> Countries page included
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            The export contains a dedicated “Countries We Serve” page listing{" "}
+            {COUNTRIES.length} countries — useful for local SEO on searches such as “medical
+            treatment in India from Bangladesh”.
+          </p>
+        </div>
       </section>
     </>
   );

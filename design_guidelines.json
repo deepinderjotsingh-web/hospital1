@@ -1,29 +1,7 @@
 {
-  "typography": {
-    "heading_font": "Plus Jakarta Sans Variable",
-    "body_font": "DM Sans Variable",
-    "mono_font": "JetBrains Mono Variable",
-    "import_statement": "@import \"@fontsource-variable/plus-jakarta-sans\";\n@import \"@fontsource-variable/dm-sans\";\n@import \"@fontsource-variable/jetbrains-mono\";",
-    "scale_px": {
-      "display": 56,
-      "h1": 44,
-      "h2": 32,
-      "h3": 22,
-      "body": 16,
-      "caption": 14
-    },
-    "rules": {
-      "hero_h1": "text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight",
-      "section_h2": "text-2xl sm:text-3xl font-bold tracking-tight text-slate-900",
-      "card_h3": "text-lg sm:text-xl font-semibold tracking-tight text-slate-900",
-      "body": "text-base leading-relaxed text-slate-600 font-normal",
-      "badge_overline": "text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200"
-    }
-  },
+  "theme": "light",
+  "archetype": "Organic & Earthy / Medical Trust Fusion (Clinical Precision + Warm Welcoming Hospitalier)",
   "colors": {
-    "palette_name": "Clinical Precision & Organic Teal",
-    "accent": "#0D9488",
-    "on_accent": "#FFFFFF",
     "surfaces": [
       {
         "name": "page",
@@ -35,161 +13,331 @@
           "primary": "#0D9488",
           "primary_hover": "#0F766E",
           "secondary": "#0284C7",
-          "border": "#E2E8F0",
-          "card_bg": "#FFFFFF",
+          "accent_warm": "#D97706",
           "success": "#16A34A",
-          "warning": "#D97706",
-          "error": "#DC2626"
+          "border": "#E2E8F0",
+          "border_subtle": "#F1F5F9"
         }
       },
       {
-        "name": "header_glass",
-        "kind": "glass",
-        "contrast_against": "#FFFFFF",
-        "guarantee": "backdrop-blur-md bg-white/90 border-b border-slate-200/80 shadow-xs",
+        "name": "card_surface",
+        "kind": "solid",
+        "bg": "#FFFFFF",
         "on_bg": "#0F172A",
-        "on_bg_muted": "#475569"
+        "on_bg_muted": "#64748B",
+        "roles": {
+          "tag_bg": "#F0FDFA",
+          "tag_text": "#0F766E",
+          "border": "#E2E8F0"
+        }
+      },
+      {
+        "name": "top_emergency_banner",
+        "kind": "solid",
+        "bg": "#042F2E",
+        "on_bg": "#F0FDFA",
+        "on_bg_muted": "#99F6E4",
+        "roles": {
+          "phone_highlight": "#2DD4BF",
+          "badge_bg": "#115E59"
+        }
       },
       {
         "name": "hero_banner",
         "kind": "solid",
-        "bg": "#F0FDFA",
-        "on_bg": "#0F172A",
-        "on_bg_muted": "#334155"
+        "bg": "#0F172A",
+        "on_bg": "#F8FAFC",
+        "on_bg_muted": "#CBD5E1",
+        "roles": {
+          "accent_badge": "#14B8A6",
+          "whatsapp_btn": "#22C55E",
+          "subtle_pill": "rgba(255,255,255,0.12)"
+        }
       },
       {
-        "name": "trust_dark_bar",
+        "name": "teal_accent_panel",
         "kind": "solid",
-        "bg": "#0F172A",
+        "bg": "#0D9488",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#CCFBF1",
+        "roles": {
+          "highlight": "#FEF08A"
+        }
+      },
+      {
+        "name": "footer",
+        "kind": "solid",
+        "bg": "#091422",
         "on_bg": "#F8FAFC",
         "on_bg_muted": "#94A3B8",
         "roles": {
-          "accent_highlight": "#2DD4BF"
+          "accent": "#2DD4BF",
+          "border": "#1E293B"
         }
-      },
-      {
-        "name": "product_card",
-        "kind": "solid",
-        "bg": "#FFFFFF",
-        "on_bg": "#0F172A",
-        "on_bg_muted": "#475569",
-        "roles": {
-          "tag_bg": "#ECFDF5",
-          "tag_text": "#065F46",
-          "price_text": "#0D9488"
-        }
-      },
-      {
-        "name": "footer_dark",
-        "kind": "solid",
-        "bg": "#0B132B",
-        "on_bg": "#F8FAFC",
-        "on_bg_muted": "#94A3B8"
-      },
-      {
-        "name": "whatsapp_float",
-        "kind": "solid",
-        "bg": "#25D366",
-        "on_bg": "#FFFFFF",
-        "on_bg_muted": "#F0FDF4"
       }
-    ]
+    ],
+    "accent": "#0D9488",
+    "on_accent": "#FFFFFF"
+  },
+  "typography": {
+    "font_family_headings": "Outfit Variable, sans-serif",
+    "font_family_body": "Plus Jakarta Sans Variable, sans-serif",
+    "font_family_mono": "IBM Plex Mono, monospace",
+    "font_imports": [
+      "@import \"@fontsource-variable/outfit\";",
+      "@import \"@fontsource-variable/plus-jakarta-sans\";",
+      "@import \"@fontsource/ibm-plex-mono\";"
+    ],
+    "scale_px": {
+      "display": 56,
+      "h1": 44,
+      "h2": 32,
+      "h3": 24,
+      "h4": 20,
+      "body": 16,
+      "caption": 14
+    },
+    "hierarchy_rules": "Tight tracking on headers (tracking-tight), relaxed leading on body (leading-relaxed). Headings use Outfit font-semibold or font-bold, body uses Plus Jakarta Sans font-normal or font-medium."
   },
   "entry_surfaces": {
-    "/": "split hero — value prop & quick RFQ trigger left, hospital equipment visual showcase & trust badges right",
-    "/products": "filter-enabled catalog view — search and category pills left/top, interactive product grid right",
-    "/products/:id": "split product detail — multi-angle image gallery & specs tab left, direct quote request & WhatsApp CTA panel right",
-    "/services": "grid layout — hospital turnkey installation, ICU setup, equipment calibration and AMC maintenance cards",
-    "/about": "editorial storytelling — medical compliance certifications, Delhi NCR warehouse footprint, and executive team",
-    "/contact": "split contact surface — Delhi NCR regional hub info & direct call line left, full RFQ inquiry form right",
-    "/export-data": "utility dashboard — XML WordPress WXR exporter + JSON export preview with instant download"
+    "/": "split hero — brand value & rapid free-quote CTA left with trust stats, interactive treatment cost comparison & doctor preview right; top emergency bar with 24/7 hotline +91 9920222362",
+    "/treatments": "catalog layout — specialty tab filters + search bar at top, 10 treatment cards with USD estimates, recovery stay, and direct inquiry CTA",
+    "/treatments/:slug": "treatment detail layout — overview, USD cost breakdown vs USA/UK, recovery timeline, top JCI hospitals in Delhi NCR, doctor profiles, and immediate quotation form",
+    "/services": "facilitation services grid — 6 core pillars (Coordination, Medical Visa, Airport Cab, Hotel Stay, Interpreters, 24/7 WhatsApp) with step-by-step patient journey timeline",
+    "/about": "authority & trust layout — Delhi NCR medical hub advantages, team credentials, NABH/JCI hospital networks, international patient protocols",
+    "/contact": "patient intake consultation form with international country selector, medical report upload simulation, emergency phone links, and WhatsApp quick connect",
+    "/export-data": "data export utility — WordPress WXR XML generator with downloadable SPS Medcare posts, treatments, and pages export file"
   },
-  "layout_and_grids": {
-    "philosophy": "Asymmetric Swiss grid with clinical cleanliness, generous whitespace (p-8 to p-16), and layered depth rather than flat generic cards.",
-    "top_bar": "Deep slate/teal utility strip displaying Mobile: +91 9920222362, Email: info@sps-medcare.com, Delhi NCR Delivery, ISO 13485 & CE Certified",
-    "navbar": "Sticky crystal glass header with brand logo, nav links (Home, Products, Categories, Services, About, Contact), Quick Quote button, and direct call trigger",
-    "bento_features": "3-column asymmetric layout highlighting ICU Beds, Surgical Theatre Units, Diagnostic & Monitoring Equipments, and Hospital Furniture",
-    "quote_drawer": "Instant Slide-over RFQ drawer for rapid equipment quoting without navigating away"
+  "branding_and_identity": {
+    "brand_name": "SPS Medcare",
+    "tagline": "World-Class Medical Tourism & Healthcare Facilitation in India",
+    "headquarters": "Delhi NCR, India",
+    "primary_phone": "+91 9920222362",
+    "primary_email": "info@sps-medcare.com",
+    "whatsapp_link": "https://wa.me/919920222362?text=Hello%20SPS%20Medcare%2C%20I%20would%20like%20a%20free%20medical%20treatment%20opinion%20and%20cost%20estimate.",
+    "key_differentiators": [
+      "Zero facilitation fee for patients",
+      "Partnership with top JCI & NABH accredited hospitals in Delhi NCR",
+      "End-to-end medical visa, airport pick-up & translator assistance",
+      "Save up to 60-80% compared to US, UK, and European medical costs"
+    ],
+    "countries_served": [
+      {"name": "Bangladesh", "flag": "🇧🇩", "code": "BD"},
+      {"name": "Nepal", "flag": "🇳🇵", "code": "NP"},
+      {"name": "Sri Lanka", "flag": "🇱🇰", "code": "LK"},
+      {"name": "United Arab Emirates", "flag": "🇦🇪", "code": "AE"},
+      {"name": "Nigeria", "flag": "🇳🇬", "code": "NG"},
+      {"name": "Afghanistan", "flag": "🇦🇫", "code": "AF"},
+      {"name": "Iraq", "flag": "🇮🇶", "code": "IQ"},
+      {"name": "Maldives", "flag": "🇲🇻", "code": "MV"},
+      {"name": "Oman", "flag": "🇴🇲", "code": "OM"},
+      {"name": "Kenya", "flag": "🇰🇪", "code": "KE"},
+      {"name": "Yemen", "flag": "🇾🇪", "code": "YE"},
+      {"name": "Tanzania", "flag": "🇹🇿", "code": "TZ"}
+    ]
   },
-  "image_urls": {
-    "hero_hospital_suite": {
-      "url": "https://images.unsplash.com/photo-1710074213379-2a9c2653046a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxob3NwaXRhbCUyMG1lZGljYWwlMjBlcXVpcG1lbnQlMjBjbGluaWN8ZW58MHx8fHwxNzkwMzk2NTg0fDA&ixlib=rb-4.1.0&q=85",
-      "description": "Modern hospital ward equipped with motorized patient bed and medical infrastructure",
-      "placement": "Hero section right showcase / About page facility banner"
+  "media_and_assets": {
+    "hero_consultation": {
+      "url": "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwxfHxkb2N0b3IlMjBwYXRpZW50JTIwY29uc3VsdGF0aW9ufGVufDB8fHx8MTc5MDM5NzgzMXww&ixlib=rb-4.1.0&q=85",
+      "description": "Doctor patient consultation in clean modern clinic"
     },
-    "icu_beds_category": {
-      "url": "https://images.unsplash.com/photo-1538108149393-fbbd81895907?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwyfHxob3NwaXRhbCUyMGJlZCUyMGludGVuc2l2ZSUyMGNhcmV8ZW58MHx8fHwxNzkwMzk2NTg0fDA&ixlib=rb-4.1.0&q=85",
-      "description": "Clean hospital recovery room with multi-function medical bed",
-      "placement": "Hospital Furniture / ICU Bed product category card"
+    "delhi_landmark": {
+      "url": "https://images.unsplash.com/photo-1599230080795-a48439229cb7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwxfHxkZWxoaSUyMGluZGlhJTIwc2t5bGluZSUyMGxhbmRtYXJrfGVufDB8fHx8MTc5MDM5NzgzMHww&ixlib=rb-4.1.0&q=85",
+      "description": "Delhi India cityscape representing world medical capital"
     },
-    "surgical_room": {
-      "url": "https://images.unsplash.com/photo-1762237798212-bcc000c00891?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHw0fHxzdXJnaWNhbCUyMGluc3RydW1lbnRzJTIwZG9jdG9yJTIwb3BlcmF0aW5nJTIwcm9vbXxlbnwwfHx8fDE3OTAzOTY1ODR8MA&ixlib=rb-4.1.0&q=85",
-      "description": "Surgeons in operating theatre with precision surgical lighting and monitoring systems",
-      "placement": "Surgical Instruments & OT Equipment category / Turnkey OT Setup service banner"
+    "operating_room": {
+      "url": "https://images.unsplash.com/photo-1579684288452-b334934f845f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA0MTJ8MHwxfHNlYXJjaHw0fHxob3NwaXRhbCUyMG1vZGVybiUyMG9wZXJhdGluZyUyMHJvb218ZW58MHx8fHwxNzkwMzk3ODMwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Surgical team in modern JCI accredited operating theatre"
     },
-    "diagnostic_monitors": {
-      "url": "https://images.unsplash.com/photo-1766299892549-b56b257d1ddd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxob3NwaXRhbCUyMG1lZGljYWwlMjBlcXVpcG1lbnQlMjBjbGluaWN8ZW58MHx8fHwxNzkwMzk2NTg0fDA&ixlib=rb-4.1.0&q=85",
-      "description": "Wall-mounted medical diagnostic sets, otoscope and patient monitors",
-      "placement": "Diagnostic Equipment & ICU Setup showcase"
-    },
-    "ward_care_suite": {
-      "url": "https://images.unsplash.com/photo-1512678080530-7760d81faba6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwxfHxob3NwaXRhbCUyMGJlZCUyMGludGVuc2l2ZSUyMGNhcmV8ZW58MHx8fHwxNzkwMzk2NTg0fDA&ixlib=rb-4.1.0&q=85",
-      "description": "Premium hospital suite with patient recovery ergonomics",
-      "placement": "Hospital Furniture collection card"
-    },
-    "operating_lights": {
-      "url": "https://images.unsplash.com/photo-1770836037350-00139eb5df96?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxzdXJnaWNhbCUyMGluc3RydW1lbnRzJTIwZG9jdG9yJTIwb3BlcmF0aW5nJTIwcm9vbXxlbnwwfHx8fDE3OTAzOTY1ODR8MA&ixlib=rb-4.1.0&q=85",
-      "description": "Overhead high-intensity surgical shadowless LED light fixtures in operating room",
-      "placement": "Operation Theatre Equipment & Lighting card"
+    "doctor_patient_care": {
+      "url": "https://images.unsplash.com/photo-1581056771107-24ca5f033842?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHw0fHxkb2N0b3IlMjBwYXRpZW50JTIwY29uc3VsdGF0aW9ufGVufDB8fHx8MTc5MDM5NzgzMXww&ixlib=rb-4.1.0&q=85",
+      "description": "Compassionate doctor checking patient in recovery room"
     }
   },
-  "components_and_routes": {
-    "top_utility_bar": "frontend/src/components/layout/TopBar.tsx",
-    "navbar": "frontend/src/components/layout/Navbar.tsx",
-    "footer": "frontend/src/components/layout/Footer.tsx",
-    "floating_whatsapp": "frontend/src/components/common/FloatingWhatsApp.tsx",
-    "rfq_modal_drawer": "frontend/src/components/inquiry/RfqDrawer.tsx",
-    "product_card": "frontend/src/components/catalog/ProductCard.tsx",
-    "category_filter": "frontend/src/components/catalog/CategoryFilter.tsx",
-    "seo_meta_helper": "frontend/src/components/seo/SeoHead.tsx",
-    "pages": {
-      "home": "frontend/src/pages/Home.tsx",
-      "products": "frontend/src/pages/Products.tsx",
-      "product_detail": "frontend/src/pages/ProductDetail.tsx",
-      "services": "frontend/src/pages/Services.tsx",
-      "about": "frontend/src/pages/About.tsx",
-      "contact": "frontend/src/pages/Contact.tsx",
-      "export_data": "frontend/src/pages/ExportData.tsx"
+  "ten_core_treatments": [
+    {
+      "id": "cancer-oncology",
+      "title": "Cancer & Oncology Care",
+      "category": "Oncology",
+      "description": "Advanced CyberKnife, Immunotherapy, PET-CT guided precision radiation, and surgical oncology by world-renowned specialists.",
+      "estimated_cost_usd": "$3,500 - $8,500",
+      "us_uk_cost_comparison": "$45,000 - $90,000 in USA",
+      "hospital_stay": "3 - 7 Days",
+      "stay_in_india": "14 - 21 Days",
+      "icon": "Activity"
+    },
+    {
+      "id": "cardiac-surgery",
+      "title": "Cardiac Surgery & Cardiology",
+      "category": "Cardiology",
+      "description": "Minimally invasive CABG (Bypass), Valve replacements, TAVI, Pediatric heart surgery, and robotic heart procedures.",
+      "estimated_cost_usd": "$4,200 - $7,000",
+      "us_uk_cost_comparison": "$60,000+ in USA",
+      "hospital_stay": "5 - 7 Days",
+      "stay_in_india": "12 - 16 Days",
+      "icon": "Heart"
+    },
+    {
+      "id": "orthopedics-joint-replacement",
+      "title": "Orthopedics & Joint Replacement",
+      "category": "Orthopedics",
+      "description": "Robotic Total Knee & Hip Replacement, Spine fusion, Arthroscopic ligament reconstruction with rapid rehabilitation.",
+      "estimated_cost_usd": "$4,000 - $6,500",
+      "us_uk_cost_comparison": "$40,000 in UK/USA",
+      "hospital_stay": "3 - 5 Days",
+      "stay_in_india": "10 - 14 Days",
+      "icon": "Bone"
+    },
+    {
+      "id": "organ-transplants",
+      "title": "Organ Transplants (Liver & Kidney)",
+      "category": "Transplants",
+      "description": "High-success living donor liver and kidney transplants in dedicated ICU transplant units complying with NOTTO legal standards.",
+      "estimated_cost_usd": "$12,000 - $28,000",
+      "us_uk_cost_comparison": "$150,000 - $300,000 in USA",
+      "hospital_stay": "10 - 14 Days",
+      "stay_in_india": "30 - 45 Days",
+      "icon": "ShieldCheck"
+    },
+    {
+      "id": "neurosurgery-spine",
+      "title": "Neurosurgery & Spine Care",
+      "category": "Neurology",
+      "description": "Brain tumor excision, deep brain stimulation, endoscopic spine surgery, and aneurysm clipping with intraoperative MRI.",
+      "estimated_cost_usd": "$5,000 - $9,000",
+      "us_uk_cost_comparison": "$55,000+ in USA",
+      "hospital_stay": "4 - 8 Days",
+      "stay_in_india": "14 - 18 Days",
+      "icon": "Zap"
+    },
+    {
+      "id": "bone-marrow-transplant",
+      "title": "Bone Marrow Transplant (BMT)",
+      "category": "Hematology",
+      "description": "Autologous and Allogeneic BMT for Leukemia, Thalassemia, and Lymphoma in HEPA-filtered clean room units.",
+      "estimated_cost_usd": "$15,000 - $25,000",
+      "us_uk_cost_comparison": "$180,000 in USA",
+      "hospital_stay": "15 - 25 Days",
+      "stay_in_india": "45 - 60 Days",
+      "icon": "Dna"
+    },
+    {
+      "id": "cosmetic-plastic-surgery",
+      "title": "Cosmetic & Plastic Surgery",
+      "category": "Cosmetic",
+      "description": "Rhinoplasty, Liposuction, Breast augmentation/reduction, Hair transplantation, and Mummy makeovers by board-certified plastic surgeons.",
+      "estimated_cost_usd": "$1,800 - $4,500",
+      "us_uk_cost_comparison": "$12,000 - $25,000 in USA",
+      "hospital_stay": "1 - 2 Days",
+      "stay_in_india": "7 - 10 Days",
+      "icon": "Sparkles"
+    },
+    {
+      "id": "urology-nephrology",
+      "title": "Urology & Nephrology",
+      "category": "Urology",
+      "description": "Robotic prostatectomy, Laser kidney stone removal (RIRS/PCNL), dialysis support, and reconstructive urology.",
+      "estimated_cost_usd": "$2,200 - $5,000",
+      "us_uk_cost_comparison": "$22,000 in USA",
+      "hospital_stay": "2 - 4 Days",
+      "stay_in_india": "7 - 10 Days",
+      "icon": "Filter"
+    },
+    {
+      "id": "ivf-fertility",
+      "title": "IVF & Fertility Treatments",
+      "category": "Fertility",
+      "description": "ICSI, IMSI, Pre-implantation genetic screening (PGS), Donor programs, and advanced embryology labs with high take-home baby rates.",
+      "estimated_cost_usd": "$2,500 - $4,200",
+      "us_uk_cost_comparison": "$18,000 - $30,000 in USA",
+      "hospital_stay": "Day Care / Outpatient",
+      "stay_in_india": "14 - 21 Days",
+      "icon": "Baby"
+    },
+    {
+      "id": "general-laparoscopic-surgery",
+      "title": "General & Laparoscopic Surgery",
+      "category": "General",
+      "description": "Gallbladder removal, Hernia repair, Bariatric (weight loss) sleeve surgery, and gastrointestinal reconstructive operations.",
+      "estimated_cost_usd": "$2,000 - $4,800",
+      "us_uk_cost_comparison": "$16,000 - $30,000 in USA",
+      "hospital_stay": "2 - 3 Days",
+      "stay_in_india": "7 - 10 Days",
+      "icon": "Crosshair"
     }
-  },
-  "motion_and_interactions": {
-    "hover_lift": "hover:-translate-y-1 transition-transform duration-200 ease-out hover:shadow-lg",
-    "button_press": "active:scale-98 transition-transform duration-100",
-    "subtle_fade_in": "animate-in fade-in-50 duration-300",
-    "whatsapp_pulse": "relative inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"
-  },
-  "accessibility": {
-    "wcag_compliance": "WCAG AA (4.5:1 minimum on all body copy and badges)",
-    "aria_labels": "All phone click-to-call links and WhatsApp floating buttons have explicit aria-label='Contact SPS Medcare at +91 9920222362'",
-    "focus_rings": "focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 outline-none",
-    "test_attributes": "All CTA buttons, search inputs, category filters, and inquiry form fields must include kebab-case data-testid attributes"
-  },
-  "data_and_seo": {
-    "phone": "+91 9920222362",
-    "phone_display": "9920222362",
-    "whatsapp_link": "https://wa.me/919920222362?text=Hello%20SPS%20Medcare%2C%20I%20would%20like%20to%20inquire%20about%20hospital%20equipment",
-    "email": "info@sps-medcare.com",
-    "address": "B-42, Okhla Industrial Area, Phase-II, New Delhi, Delhi NCR - 110020, India",
-    "iso_certification": "ISO 13485:2016 & CE Certified Medical Supplier",
-    "wxr_export_support": "Full WordPress WXR XML export with <wp:post_type>product</wp:post_type>, custom taxonomy for categories, pricing, specifications, and featured images."
+  ],
+  "six_facilitation_services": [
+    {
+      "id": "medical-coordination",
+      "title": "Medical Treatment Coordination",
+      "description": "Free second opinions, treatment plans, and doctor appointments at premier hospitals like Fortis, Max, Medanta, and Apollo.",
+      "icon": "FileText"
+    },
+    {
+      "id": "visa-assistance",
+      "title": "Medical Visa Assistance",
+      "description": "Official Medical Visa invitation letters within 24 hours to expedite your Indian Embassy application for patient and attendant.",
+      "icon": "Plane"
+    },
+    {
+      "id": "airport-transport",
+      "title": "Airport Transportation",
+      "description": "Complimentary VIP airport pickup and drop-off with dedicated driver and patient-ready vehicle at IGI Airport Delhi.",
+      "icon": "Car"
+    },
+    {
+      "id": "accommodation-assistance",
+      "title": "Accommodation Assistance",
+      "description": "Affordable and hygienic guest houses, serviced apartments, or 4/5-star hotels near your hospital with kitchen facilities.",
+      "icon": "Home"
+    },
+    {
+      "id": "interpreter-support",
+      "title": "Language Interpreter Support",
+      "description": "Dedicated language translators fluent in Arabic, Bengali, Dari/Pashto, French, Russian, and Swahili throughout your medical stay.",
+      "icon": "Languages"
+    },
+    {
+      "id": "whatsapp-support",
+      "title": "24/7 WhatsApp & Care Support",
+      "description": "Direct care manager on standby 24/7 for medicine refills, doctor checkups, currency exchange, and local SIM cards.",
+      "icon": "MessageCircle"
+    }
+  ],
+  "ui_components_and_layout_rules": {
+    "header": {
+      "style": "sticky top-0 z-50 backdrop-blur-md bg-white/95 border-b border-slate-200",
+      "elements": [
+        "Brand Logo 'SPS Medcare' with teal medical cross symbol",
+        "Navigation Links: Home, Treatments (with dropdown/badge '10 Specialties'), Services, Why India, Countries Served, About Us, Contact",
+        "Direct Hotline badge with phone link: +91 9920222362",
+        "Action CTA Button: 'Get Free Quote' (teal pill button)"
+      ]
+    },
+    "top_hotline_bar": {
+      "style": "bg-slate-900 text-slate-100 text-xs py-2 px-4 flex flex-wrap justify-between items-center",
+      "content": "Emergency 24/7 Desk: +91 9920222362 | Delhi NCR, India | Serving patients across 12+ countries"
+    },
+    "floating_whatsapp_widget": {
+      "style": "fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105",
+      "phone": "+91 9920222362",
+      "label": "Chat with Medical Coordinator"
+    },
+    "wordpress_xml_export": {
+      "route": "/export-data",
+      "purpose": "Generates and downloads valid WordPress WXR XML containing all SPS Medcare treatment pages, services, posts, and patient resources.",
+      "action": "Download SPS_Medcare_WXR_Export.xml"
+    }
   },
   "instructions_to_main_agent": [
-    "Follow the Teal (#0D9488) and Crisp White theme. Avoid dark saturated purple/violet gradients.",
-    "Prominently place mobile 9920222362 and WhatsApp wa.me/919920222362 across TopBar, Navbar, Hero, Floating Action Button, Product Detail and Contact forms.",
-    "Build a rich product catalog with categories (ICU & Electric Beds, OT Equipment, Diagnostic Monitors, Surgical Instruments, Hospital Furniture, Emergency & Mobility).",
-    "Seed at least 12-16 realistic hospital medical equipment products with technical specifications, model numbers, certifications, warranty, and RFQ quick triggers.",
-    "Implement the WordPress WXR XML export page (/export-data) allowing immediate download of sps-medcare-catalog.xml with valid WXR structure for seamless CMS import.",
-    "Ensure SEO-friendly schema markup (Organization, MedicalBusiness, Product, BreadcrumbList) on all key routes.",
-    "Ensure every interactive element has a data-testid attribute for end-to-end testing."
+    "Retain the clean medical trust look: professional medical teal (#0D9488), deep clinical navy/slate (#0F172A), crisp white cards, and warm amber trust accents.",
+    "Prominently display the phone number +91 9920222362 in header, hero, floating WhatsApp button, contact page, and footer.",
+    "Implement the 10 treatments in a catalog page with instant specialty filtering and interactive search.",
+    "Create dynamic Treatment Detail pages (/treatments/:slug) showing cost comparisons (India vs US/UK), stay duration, hospital partner highlights, and inquiry form.",
+    "Build the 6 facilitation services section with step-by-step patient journey (Diagnosis -> Visa -> Travel -> Treatment -> Recovery -> Post-Care).",
+    "Include a 'Countries Served' ribbon / interactive selector highlighting patients from Bangladesh, Nepal, Sri Lanka, UAE, Nigeria, Afghanistan, Iraq, Maldives, Oman, Kenya, Yemen.",
+    "Provide a working XML exporter at /export-data that generates valid WordPress WXR XML with full metadata and treatment posts.",
+    "Connect the inquiry forms to backend API `/api/inquiries` and ensure client-side state works seamlessly even if backend is mocked or static.",
+    "Add explicit data-testid attributes to all buttons, inputs, links, and cards for automated testing."
   ]
 }
