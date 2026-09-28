@@ -39,12 +39,17 @@ WHAT IS IN THIS ZIP
    The complete website content as a WordPress WXR 1.2 import file:
      - 6 pages ......... Home, About Us, Treatments, Services, Contact Us,
                          Countries We Serve
-     - 10 treatment pages with cost comparison, procedures covered,
-       leading hospitals and what SPS Medcare includes free
+     - 10 treatment pages with full description, cost comparison table,
+       procedures covered, leading hospitals, free inclusions and a 5-question
+       FAQ block
      - 10 SEO blog posts ("<Treatment> in India: Cost, Hospitals and
        Recovery Time") for long-tail search traffic
-     - 10 treatment images as media attachments (downloaded automatically
-       by the WordPress importer)
+     - 16 images as media attachments — 10 treatment photos plus the 6 site
+       photos used on the live design (hero consultation, doctor & patient,
+       patient care, operating theatre, airport pickup, Taj Mahal) —
+       downloaded automatically by the WordPress importer, with alt text
+     - A ready-made "Primary Menu" with all 6 pages in order
+     - Featured image set on every page, treatment page and blog post
      - 10 specialty categories
      - Yoast SEO + Rank Math title and meta-description on every item
 
@@ -76,7 +81,7 @@ Step 3. Choose the file {XML_NAME} from this ZIP
 Step 4. On the next screen:
           - Assign posts to your existing admin user
           - IMPORTANT: tick "Download and import file attachments"
-            (this pulls in all 10 treatment images)
+            (this pulls in all 16 images)
         Click Submit.
 
 Step 5. Build your menu:  Appearance -> Menus

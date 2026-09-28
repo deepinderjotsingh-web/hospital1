@@ -24,7 +24,7 @@ const STEPS = [
 
 const PACKAGE_FILES = [
   ["README.txt", "Step-by-step WordPress import guide with your contact details"],
-  ["sps-medcare-wordpress-import.xml", "The full website content (WXR 1.2) — pages, treatments, blog posts, images"],
+  ["sps-medcare-wordpress-import.xml", "The full website content (WXR 1.2) — every page section, 10 treatment pages with FAQs, 10 blog posts, 16 images and the primary menu"],
   ["treatments.csv", "All 10 treatments with costs and hospitals, as a spreadsheet"],
   ["sitemap.xml", "Ready-to-upload sitemap for Google Search Console"],
   ["robots.txt", "Search-engine crawl rules"],
@@ -174,7 +174,8 @@ export default function ExportData() {
                     WordPress Import File only (.xml)
                   </h2>
                   <p className="mt-0.5 text-xs text-slate-500">
-                    sps-medcare-wordpress-import.xml · WXR 1.2 · ~130 KB · images sideloaded by the
+                    sps-medcare-wordpress-import.xml · WXR 1.2 · ~255 KB · 6 pages, 10 treatment
+                    pages, 10 blog posts, 16 images and a ready-made menu — all sideloaded by the
                     importer
                   </p>
                 </div>

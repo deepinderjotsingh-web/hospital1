@@ -71,3 +71,11 @@ template-parts/treatment-card), `inc/` (post-types, meta-boxes, customizer, enqu
 demo-content), `assets/js/theme.js`, `style.css`, `readme.txt`.
 Delivered via `GET /api/download/wordpress-theme` (zipped in memory, rooted at `sps-medcare/`) and the
 "Download Theme" button on /export-data. Never ship zips as static frontend files (.gitignore excludes them).
+
+## WXR XML (rewritten, ~255 KB)
+`backend/make_wxr.py` now mirrors the full preview: every home/about/services/treatments/contact/countries
+section (hero, stats, countries with flags, 6 services, cost-comparison tables, why India, 6-step journey,
+3 patient stories, CTAs), 10 treatment pages (description, cost table, procedures, hospitals, inclusions,
+5-question FAQ, cross-links), 10 cost-guide posts, 16 image attachments (6 site photos from
+frontend/src/lib/site.ts IMAGES + 10 treatment photos, with alt text), featured images on every item,
+10 specialty categories and a ready-made "Primary Menu" of nav_menu_items.
