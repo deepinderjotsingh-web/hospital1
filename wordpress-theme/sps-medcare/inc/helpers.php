@@ -184,16 +184,60 @@ function sps_specialty_name( $post_id = null ) {
 }
 
 /**
+ * URL of an image bundled with the theme.
+ *
+ * @param string $file File name inside /assets/img/.
+ * @return string
+ */
+function sps_asset_img( $file ) {
+	return get_template_directory_uri() . '/assets/img/' . ltrim( $file, '/' );
+}
+
+/**
+ * Absolute path of a bundled image (or '' when it does not exist).
+ *
+ * @param string $file File name inside /assets/img/.
+ * @return string
+ */
+function sps_asset_img_path( $file ) {
+	$path = get_template_directory() . '/assets/img/' . ltrim( $file, '/' );
+
+	return file_exists( $path ) ? $path : '';
+}
+
+/**
+ * The treatment photo shipped with the theme for this post's slug.
+ *
+ * Lets every treatment show a real photo even before you upload your own.
+ *
+ * @param int|null $post_id Post ID.
+ * @return string Image URL, or '' when there is no bundled photo.
+ */
+function sps_bundled_treatment_image( $post_id = null ) {
+	$post_id = $post_id ? $post_id : get_the_ID();
+	$slug    = get_post_field( 'post_name', $post_id );
+
+	if ( ! $slug ) {
+		return '';
+	}
+
+	return sps_asset_img_path( 'treatments/' . $slug . '.jpg' )
+		? sps_asset_img( 'treatments/' . $slug . '.jpg' )
+		: '';
+}
+
+/**
  * Fallback image URL when a treatment has no featured image.
  *
  * @return string
  */
 function sps_placeholder_image() {
-	return get_template_directory_uri() . '/assets/img/placeholder.svg';
+	return sps_asset_img( 'placeholder.svg' );
 }
 
 /**
- * Featured image URL with graceful fallback.
+ * Featured image URL with graceful fallback:
+ * featured image → bundled treatment photo → placeholder.
  *
  * @param string   $size    Image size.
  * @param int|null $post_id Post ID.
@@ -203,7 +247,13 @@ function sps_thumbnail_url( $size = 'sps-treatment-card', $post_id = null ) {
 	$post_id = $post_id ? $post_id : get_the_ID();
 	$url     = get_the_post_thumbnail_url( $post_id, $size );
 
-	return $url ? $url : sps_placeholder_image();
+	if ( $url ) {
+		return $url;
+	}
+
+	$bundled = sps_bundled_treatment_image( $post_id );
+
+	return $bundled ? $bundled : sps_placeholder_image();
 }
 
 /**

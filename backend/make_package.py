@@ -39,17 +39,18 @@ WHAT IS IN THIS ZIP
    The complete website content as a WordPress WXR 1.2 import file:
      - 6 pages ......... Home, About Us, Treatments, Services, Contact Us,
                          Countries We Serve
-     - 10 treatment pages with full description, cost comparison table,
-       procedures covered, leading hospitals, free inclusions and a 5-question
-       FAQ block
+     - 10 treatments as "Treatments" entries (the sps_treatment post type used
+       by the SPS Medcare theme) with the cost-in-India, cost-abroad, savings %,
+       hospital stay, days in India, outcomes, procedures and hospitals fields
+       filled in, assigned to their specialty, plus a 5-question FAQ in the body
      - 10 SEO blog posts ("<Treatment> in India: Cost, Hospitals and
        Recovery Time") for long-tail search traffic
      - 16 images as media attachments — 10 treatment photos plus the 6 site
        photos used on the live design (hero consultation, doctor & patient,
        patient care, operating theatre, airport pickup, Taj Mahal) —
        downloaded automatically by the WordPress importer, with alt text
-     - A ready-made "Primary Menu" with all 6 pages in order
-     - Featured image set on every page, treatment page and blog post
+     - Two ready-made menus, "Primary Menu" (header) and "Footer Quick Links"
+     - Featured image set on every page, treatment and blog post
      - 10 specialty categories
      - Yoast SEO + Rank Math title and meta-description on every item
 
@@ -68,8 +69,10 @@ WHAT IS IN THIS ZIP
 
 HOW TO IMPORT INTO WORDPRESS (5 MINUTES)
 ----------------------------------------
-Step 1. Install WordPress on your hosting for sps-medcare.com and activate
-        any theme (a medical or business theme suits best).
+Step 1. Install WordPress on your hosting for sps-medcare.com, then install
+        and activate the SPS Medcare theme (download it from the website's
+        Download page). The theme is what gives you the Treatments section,
+        the cost cards and the design you see on the preview site.
 
 Step 2. In WordPress admin go to:  Tools -> Import -> WordPress
         Click "Install Now" if the WordPress importer is not yet installed,
@@ -84,14 +87,17 @@ Step 4. On the next screen:
             (this pulls in all 16 images)
         Click Submit.
 
-Step 5. Build your menu:  Appearance -> Menus
-        Add Home, Treatments, Services, About Us, Contact Us and set it as
-        the primary menu.
+Step 5. Assign the menus:  Appearance -> Menus -> Manage Locations
+        Set "Primary Menu" for the header and "Footer Quick Links" for the
+        footer (both menus are created by the import).
 
 Step 6. Set the front page:  Settings -> Reading
         Choose "A static page" and select "Home".
 
-Step 7. Upload sitemap.xml and robots.txt to your site root, then submit the
+Step 7. Settings -> Permalinks -> click Save (this makes the
+        /treatments/... URLs work).
+
+Step 8. Upload sitemap.xml and robots.txt to your site root, then submit the
         sitemap at Google Search Console for faster indexing.
 
 

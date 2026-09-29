@@ -143,8 +143,11 @@ function sps_customize_register( $wp_customize ) {
 		'hero_title'    => array( __( 'Heading (wrap highlighted words in <em>)', 'sps-medcare' ), 'World-Class Medical Treatment in India — <em>At a Fraction of the Cost</em>', 'textarea' ),
 		'hero_text'     => array( __( 'Intro paragraph', 'sps-medcare' ), 'We are dedicated to making your medical journey smooth, safe and stress-free. Trusted by <strong>2,500+ patients</strong> from Bangladesh, Nepal, Sri Lanka, UAE, Nigeria, Afghanistan, Iraq, Maldives, Oman and beyond.', 'textarea' ),
 		'hero_note'     => array( __( 'Highlighted note', 'sps-medcare' ), '<strong>Our service is free for patients.</strong> Send your medical reports and receive a written specialist opinion plus an itemised cost estimate within 48 hours — no charge, no obligation.', 'textarea' ),
-		'hero_image'    => array( __( 'Hero background image URL', 'sps-medcare' ), '', 'url' ),
-		'hero_image_2'  => array( __( 'Hero side image URL', 'sps-medcare' ), '', 'url' ),
+		'hero_image'    => array( __( 'Hero background image URL (blank = bundled photo)', 'sps-medcare' ), '', 'url' ),
+		'hero_image_2'  => array( __( 'Hero side image URL (blank = bundled photo)', 'sps-medcare' ), '', 'url' ),
+		'services_image' => array( __( 'Services section image URL (blank = bundled airport photo)', 'sps-medcare' ), '', 'url' ),
+		'why_image'      => array( __( 'Why India image URL (blank = bundled operating theatre photo)', 'sps-medcare' ), '', 'url' ),
+		'recovery_image' => array( __( 'Recovery section image URL (blank = bundled Taj Mahal photo)', 'sps-medcare' ), '', 'url' ),
 	);
 
 	foreach ( $hero_fields as $key => $meta ) {

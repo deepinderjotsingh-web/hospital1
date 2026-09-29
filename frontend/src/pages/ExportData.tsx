@@ -16,10 +16,10 @@ import type { Specialty, Treatment } from "@/lib/api";
 import { COUNTRIES } from "@/lib/site";
 
 const STEPS = [
-  "Install WordPress on your hosting for sps-medcare.com (any theme works; a medical or business theme suits best).",
+  "Install WordPress on your hosting for sps-medcare.com, then upload and activate the SPS Medcare theme (download it above) — it provides the Treatments section and this exact design.",
   "In WordPress admin, go to Tools → Import → WordPress and install the importer plugin if prompted.",
   "Upload sps-medcare-wordpress-import.xml, assign posts to your admin user, and tick “Download and import file attachments”.",
-  "Done — all pages, treatment pages, cost-guide blog posts, images and SEO meta import in one pass. Then set your menu under Appearance → Menus.",
+  "Set Settings → Reading → homepage to “Home”, then Settings → Permalinks → Save. Menus, images, treatments and SEO meta are already in place.",
 ];
 
 const PACKAGE_FILES = [
@@ -31,12 +31,13 @@ const PACKAGE_FILES = [
 ];
 
 const CONTENTS = [
-  ["6 pages", "Home, About Us, Treatments, Services, Contact Us, Countries We Serve"],
-  ["10 treatment pages", "One per specialty with cost comparison, procedures, hospitals and inclusions"],
+  ["6 pages", "Home, Treatments, Services, About Us, Countries We Serve, Contact Us — with the right page templates assigned"],
+  ["10 treatments", "Treatments post-type entries with cost in India, cost abroad, savings %, hospital stay, days in India, outcomes, procedures, hospitals and a 5-question FAQ"],
   ["10 blog posts", "SEO cost-guide articles (e.g. “Cardiac Surgery in India: Cost, Hospitals and Recovery Time”)"],
-  ["10 images", "Treatment images as attachments, sideloaded by the importer and set as featured images"],
-  ["10 categories", "Medical specialties as WordPress categories"],
-  ["SEO meta", "Yoast SEO and Rank Math title + description keys on every page and post"],
+  ["16 images", "6 section photos + 10 treatment photos, set as featured images (also bundled inside the theme so nothing hotlinks)"],
+  ["2 menus", "Primary Menu for the header and Footer Quick Links for the footer, both auto-assigned by the theme"],
+  ["10 specialties", "Assigned to the treatments and available as specialty filters"],
+  ["SEO meta", "Yoast SEO and Rank Math title + description keys on every page, treatment and post"],
 ];
 
 export default function ExportData() {
@@ -142,8 +143,9 @@ export default function ExportData() {
                   </h2>
                   <p className="mt-1 text-sm text-slate-600">
                     The exact design of this website as an installable WordPress theme — PHP
-                    templates, a Treatments custom post type with cost fields, customizer settings
-                    for your phone and address, enquiry form and SEO schema.
+                    templates, a Treatments post type with cost fields, all 16 photos bundled in,
+                    customizer settings for your phone and address, enquiry form and SEO schema.
+                    Install this first, then run the XML import.
                   </p>
                   <p className="mt-1 font-mono text-xs text-slate-500">
                     sps-medcare-wordpress-theme.zip · Appearance → Themes → Add New → Upload
@@ -174,9 +176,9 @@ export default function ExportData() {
                     WordPress Import File only (.xml)
                   </h2>
                   <p className="mt-0.5 text-xs text-slate-500">
-                    sps-medcare-wordpress-import.xml · WXR 1.2 · ~255 KB · 6 pages, 10 treatment
-                    pages, 10 blog posts, 16 images and a ready-made menu — all sideloaded by the
-                    importer
+                    sps-medcare-wordpress-import.xml · WXR 1.2 · ~245 KB · 6 pages, 10 treatments
+                    with cost fields, 10 blog posts, 16 images and both menus — install the theme
+                    first, then import this
                   </p>
                 </div>
               </div>

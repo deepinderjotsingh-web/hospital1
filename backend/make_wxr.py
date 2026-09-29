@@ -227,22 +227,30 @@ def ul(items: list[str]) -> str:
     return "<!-- wp:list --><ul>" + "".join(f"<li>{i}</li>" for i in items) + "</ul><!-- /wp:list -->"
 
 
+# In-page images are served from the theme folder (root-relative), so they work
+# on any domain, offline, without hotlinking. The same photos also arrive in the
+# media library as attachments below, and are used as featured images.
+THEME_IMG_BASE = "/wp-content/themes/sps-medcare/assets/img"
+
+
 def image(key: str, caption: str = "") -> str:
     img = IMG[key]
     cap = f"<figcaption class=\"wp-element-caption\">{caption}</figcaption>" if caption else ""
+    src = f"{THEME_IMG_BASE}/{img['key']}.jpg"
     return (
         f'<!-- wp:image {{"id":{img["id"]},"sizeSlug":"large","linkDestination":"none"}} -->'
         f'<figure class="wp-block-image size-large">'
-        f'<img src="{escape(img["url"])}" alt="{escape(img["alt"])}" class="wp-image-{img["id"]}"/>{cap}'
+        f'<img src="{escape(src)}" alt="{escape(img["alt"])}" class="wp-image-{img["id"]}"/>{cap}'
         "</figure><!-- /wp:image -->"
     )
 
 
 def treatment_image(t: dict, att_id: int) -> str:
+    src = f"{THEME_IMG_BASE}/treatments/{t['slug']}.jpg"
     return (
         f'<!-- wp:image {{"id":{att_id},"sizeSlug":"large","linkDestination":"none"}} -->'
         f'<figure class="wp-block-image size-large">'
-        f'<img src="{escape(t["image_url"])}" alt="{escape(t["name"] + " in India — SPS Medcare")}" class="wp-image-{att_id}"/>'
+        f'<img src="{escape(src)}" alt="{escape(t["name"] + " in India — SPS Medcare")}" class="wp-image-{att_id}"/>'
         "</figure><!-- /wp:image -->"
     )
 
@@ -501,6 +509,7 @@ PAGES = [
         "title": "Treatments",
         "slug": "treatments",
         "menu": 2,
+        "template": "page-treatments.php",
         "thumb": 402,
         "seo_title": "Treatments in India — Cost, Hospital Stay & Recovery | SPS Medcare",
         "seo_desc": "Compare 10 major treatments in India with USD cost estimates, hospital stay and days in India: cancer, cardiac, joint replacement, transplants, neurosurgery, BMT, IVF and more.",
@@ -511,6 +520,7 @@ PAGES = [
         "title": "Services",
         "slug": "services",
         "menu": 3,
+        "template": "page-services.php",
         "thumb": 405,
         "seo_title": "Patient Services — Medical Visa, Airport Pickup, Interpreter & Stay | SPS Medcare",
         "seo_desc": f"Complete support for international patients in India: treatment coordination, medical visa letters in 24 hours, airport pickup, accommodation, interpreters and 24/7 care. Call {PHONE}.",
@@ -541,6 +551,7 @@ PAGES = [
         "title": "Contact Us",
         "slug": "contact",
         "menu": 6,
+        "template": "page-contact.php",
         "thumb": 403,
         "seo_title": f"Contact SPS Medcare — Free Medical Opinion | WhatsApp {PHONE}",
         "seo_desc": f"Send your medical reports for a free specialist opinion and cost estimate. Call or WhatsApp {PHONE}, office {LANDLINE}, email {EMAIL}. Janakpuri, New Delhi.",
@@ -616,13 +627,26 @@ def build() -> str:
             f"<wp:cat_name>{cdata(spec['name'])}</wp:cat_name></wp:category>"
         )
 
-    # Primary navigation menu term
-    parts.append(
-        "<wp:term><wp:term_id>90</wp:term_id>"
-        "<wp:term_taxonomy><![CDATA[nav_menu]]></wp:term_taxonomy>"
-        "<wp:term_slug><![CDATA[primary-menu]]></wp:term_slug>"
-        "<wp:term_name><![CDATA[Primary Menu]]></wp:term_name></wp:term>"
-    )
+    # Specialty terms for the theme's sps_specialty taxonomy
+    for i, spec in enumerate(SPECIALTIES, start=40):
+        parts.append(
+            f"<wp:term><wp:term_id>{i}</wp:term_id>"
+            "<wp:term_taxonomy><![CDATA[sps_specialty]]></wp:term_taxonomy>"
+            f"<wp:term_slug>{cdata(spec['slug'])}</wp:term_slug>"
+            f"<wp:term_name>{cdata(spec['name'])}</wp:term_name></wp:term>"
+        )
+
+    # Navigation menu terms (header + footer)
+    for term_id, slug, name in (
+        (90, "primary-menu", "Primary Menu"),
+        (91, "footer-quick-links", "Footer Quick Links"),
+    ):
+        parts.append(
+            f"<wp:term><wp:term_id>{term_id}</wp:term_id>"
+            "<wp:term_taxonomy><![CDATA[nav_menu]]></wp:term_taxonomy>"
+            f"<wp:term_slug>{cdata(slug)}</wp:term_slug>"
+            f"<wp:term_name>{cdata(name)}</wp:term_name></wp:term>"
+        )
 
     def attachment(att_id: int, title: str, name: str, url: str, alt: str) -> str:
         return (
@@ -663,79 +687,69 @@ def build() -> str:
             + "<excerpt:encoded><![CDATA[]]></excerpt:encoded>"
             + item_footer(page["slug"], "page", menu_order=page["menu"])
             + meta("_thumbnail_id", str(page["thumb"]))
+            + (meta("_wp_page_template", page["template"]) if page.get("template") else "")
             + seo_meta(page["seo_title"], page["seo_desc"])
             + "</item>"
         )
 
-    # Primary menu items pointing at those pages
-    for page in PAGES:
-        item_id = 900 + page["menu"]
-        parts.append(
-            item_header(item_id, page["title"], f"{SITE}/{page['slug']}/", f"{SITE}/?p={item_id}")
-            + "<content:encoded><![CDATA[]]></content:encoded>"
-            + "<excerpt:encoded><![CDATA[]]></excerpt:encoded>"
-            + item_footer(
-                str(item_id),
-                "nav_menu_item",
-                categories='<category domain="nav_menu" nicename="primary-menu"><![CDATA[Primary Menu]]></category>',
-                menu_order=page["menu"],
+    # Menu items for both locations (header + footer), pointing at those pages
+    for menu_slug, menu_name, base_id in (
+        ("primary-menu", "Primary Menu", 900),
+        ("footer-quick-links", "Footer Quick Links", 920),
+    ):
+        for page in PAGES:
+            item_id = base_id + page["menu"]
+            parts.append(
+                item_header(item_id, page["title"], f"{SITE}/{page['slug']}/", f"{SITE}/?p={item_id}")
+                + "<content:encoded><![CDATA[]]></content:encoded>"
+                + "<excerpt:encoded><![CDATA[]]></excerpt:encoded>"
+                + item_footer(
+                    str(item_id),
+                    "nav_menu_item",
+                    categories=f'<category domain="nav_menu" nicename="{menu_slug}">{cdata(menu_name)}</category>',
+                    menu_order=page["menu"],
+                )
+                + meta("_menu_item_type", "post_type")
+                + meta("_menu_item_menu_item_parent", "0")
+                + meta("_menu_item_object_id", str(page["id"]))
+                + meta("_menu_item_object", "page")
+                + meta("_menu_item_target", "")
+                + meta("_menu_item_classes", "")
+                + meta("_menu_item_xfn", "")
+                + meta("_menu_item_url", "")
+                + "</item>"
             )
-            + meta("_menu_item_type", "post_type")
-            + meta("_menu_item_menu_item_parent", "0")
-            + meta("_menu_item_object_id", str(page["id"]))
-            + meta("_menu_item_object", "page")
-            + meta("_menu_item_target", "")
-            + meta("_menu_item_classes", "")
-            + meta("_menu_item_xfn", "")
-            + meta("_menu_item_url", "")
-            + "</item>"
-        )
 
     # Treatment pages under /treatments/
     for i, t in enumerate(TREATMENTS):
         post_id = 1001 + i
         thumb_id = 501 + i
         content = (
-            h1(f'{t["name"]} in India')
-            + treatment_image(t, thumb_id)
-            + para(f'<strong>{t["short_desc"]}</strong>')
+            para(f'<strong>{t["short_desc"]}</strong>')
             + para(t["description"])
-            + h2(f'Cost of {t["name"]} in India')
-            + table(
-                ["Detail", "Estimate"],
-                [
-                    ["Estimated cost in India", f'<strong>{t["cost_india_usd"]}</strong>'],
-                    ["Comparable cost abroad", t["cost_west_usd"]],
-                    ["You save", f'up to {t["savings_percent"]}%'],
-                    ["Hospital stay", t["hospital_stay"]],
-                    ["Total days in India", t["stay_in_india"]],
-                    ["Outcomes", t["success_rate"]],
-                    ["Specialty", t["specialty_name"]],
-                ],
-            )
-            + h2("Procedures Covered")
-            + ul(t["procedures"])
-            + h2("Leading Hospitals for This Treatment")
-            + ul(t["top_hospitals"])
-            + h2("What SPS Medcare Includes — Free of Charge")
-            + ul(COMMON_INCLUDES)
-            + image("operating-room", "JCI and NABH accredited theatres across Delhi NCR")
             + treatment_faq(t)
-            + h2("Other Treatments We Coordinate")
-            + ul([
-                f'<a href="/treatments/{o["slug"]}/">{o["name"]}</a> — from {o["cost_india_usd"]}'
-                for o in TREATMENTS
-                if o["slug"] != t["slug"]
-            ])
-            + contact_block()
         )
         seo_title = f"{t['name']} in India — Cost {t['cost_india_usd']} | SPS Medcare"
         parts.append(
-            item_header(post_id, t["name"], f"{SITE}/treatments/{t['slug']}/", f"{SITE}/?page_id={post_id}")
+            item_header(post_id, t["name"], f"{SITE}/treatments/{t['slug']}/", f"{SITE}/?post_type=sps_treatment&p={post_id}")
             + f"<content:encoded>{cdata(content)}</content:encoded>"
             + f"<excerpt:encoded>{cdata(t['short_desc'])}</excerpt:encoded>"
-            + item_footer(t["slug"], "page", menu_order=i + 1)
+            + item_footer(
+                t["slug"],
+                "sps_treatment",
+                categories=f'<category domain="sps_specialty" nicename="{t["specialty_slug"]}">{cdata(t["specialty_name"])}</category>',
+                menu_order=i + 1,
+            )
             + meta("_thumbnail_id", str(thumb_id))
+            # Meta the SPS Medcare theme reads (Treatment Details box)
+            + meta("_sps_cost_india", t["cost_india_usd"])
+            + meta("_sps_cost_west", t["cost_west_usd"])
+            + meta("_sps_savings", str(t["savings_percent"]))
+            + meta("_sps_hospital_stay", t["hospital_stay"])
+            + meta("_sps_stay_india", t["stay_in_india"])
+            + meta("_sps_success_rate", t["success_rate"])
+            + meta("_sps_procedures", "\n".join(t["procedures"]))
+            + meta("_sps_hospitals", "\n".join(t["top_hospitals"]))
             + seo_meta(seo_title, t["short_desc"])
             + "</item>"
         )
@@ -807,9 +821,9 @@ def main() -> None:
     (Path(__file__).parent.parent / "sps-medcare-wordpress-import.xml").write_text(xml, encoding="utf-8")
     print(
         f"Wrote {out_public} ({len(xml)} bytes): {len(PAGES)} pages, "
-        f"{len(TREATMENTS)} treatment pages, {len(TREATMENTS)} blog posts, "
-        f"{len(SITE_IMAGES) + len(TREATMENTS)} images, {len(SPECIALTIES)} categories, "
-        f"{len(PAGES)} menu items"
+        f"{len(TREATMENTS)} sps_treatment entries (with theme meta), {len(TREATMENTS)} blog posts, "
+        f"{len(SITE_IMAGES) + len(TREATMENTS)} images, {len(SPECIALTIES)} specialties, "
+        f"{len(PAGES) * 2} menu items (header + footer)"
     )
 
 

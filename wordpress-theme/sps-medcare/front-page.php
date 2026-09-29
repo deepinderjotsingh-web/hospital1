@@ -10,6 +10,14 @@ get_header();
 $sps_hero_img  = get_theme_mod( 'sps_hero_image' );
 $sps_hero_img2 = get_theme_mod( 'sps_hero_image_2' );
 
+// Fall back to the photos bundled with the theme so the home page is never blank.
+if ( ! $sps_hero_img ) {
+	$sps_hero_img = sps_asset_img( 'hero-consultation.jpg' );
+}
+if ( ! $sps_hero_img2 ) {
+	$sps_hero_img2 = sps_asset_img( 'doctor-patient.jpg' );
+}
+
 $sps_services = array(
 	array( 'file-text', __( 'Medical Treatment Coordination', 'sps-medcare' ), __( 'Free expert second opinions, written treatment plans and confirmed appointments at JCI & NABH accredited hospitals.', 'sps-medcare' ) ),
 	array( 'plane', __( 'Medical Visa Assistance', 'sps-medcare' ), __( 'Visa invitation letters issued within 24 hours for both patient and attendant, with embassy guidance.', 'sps-medcare' ) ),
@@ -174,10 +182,17 @@ $sps_quotes = array(
 				</div>
 			<?php endforeach; ?>
 		</div>
+
+		<figure class="sps-figure sps-figure--wide" style="margin-top:34px;">
+			<img
+				src="<?php echo esc_url( get_theme_mod( 'sps_services_image', sps_asset_img( 'airport-pickup.jpg' ) ) ); ?>"
+				alt="<?php esc_attr_e( 'Complimentary airport pickup and drop at Delhi IGI for medical travellers', 'sps-medcare' ); ?>"
+				loading="lazy"
+			/>
+			<figcaption><?php esc_html_e( 'Complimentary airport pickup and drop at Delhi IGI — in a patient-ready vehicle with a dedicated driver.', 'sps-medcare' ); ?></figcaption>
+		</figure>
 	</div>
 </section>
-
-<!-- ============ TREATMENTS ============ -->
 <?php
 $sps_treatments = new WP_Query(
 	array(
@@ -233,7 +248,15 @@ $sps_treatments = new WP_Query(
 			</div>
 		</div>
 		<div>
-			<div class="sps-card sps-card--teal">
+			<figure class="sps-figure">
+				<img
+					src="<?php echo esc_url( get_theme_mod( 'sps_why_image', sps_asset_img( 'operating-room.jpg' ) ) ); ?>"
+					alt="<?php esc_attr_e( 'Surgical team in a JCI accredited operating theatre in India', 'sps-medcare' ); ?>"
+					loading="lazy"
+				/>
+			</figure>
+
+			<div class="sps-card sps-card--teal" style="margin-top:20px;">
 				<div class="sps-card__body">
 					<span class="sps-icon-badge"><?php echo sps_icon( 'languages', 19 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 					<h3><?php esc_html_e( 'Interpreters available in', 'sps-medcare' ); ?></h3>
@@ -288,6 +311,29 @@ $sps_treatments = new WP_Query(
 				</div>
 			<?php endforeach; ?>
 		</div>
+	</div>
+</section>
+
+<!-- ============ RECOVERY / INDIA ============ -->
+<section class="sps-section sps-section--white">
+	<div class="sps-container sps-split">
+		<div>
+			<p class="sps-eyebrow"><?php esc_html_e( 'Recovery in India', 'sps-medcare' ); ?></p>
+			<h2><?php esc_html_e( 'Rest, Recover — and See a Little of India', 'sps-medcare' ); ?></h2>
+			<p class="sps-lede">
+				<?php esc_html_e( 'Once your surgeon clears you, many families use the waiting days before the flight home for a short, gentle trip — the Taj Mahal in Agra is a three-hour drive from Delhi. Your care manager arranges the car, the tickets and a wheelchair if you need one.', 'sps-medcare' ); ?>
+			</p>
+			<a class="sps-btn sps-btn--outline" href="<?php echo esc_url( sps_contact_url() ); ?>">
+				<?php esc_html_e( 'Plan My Trip', 'sps-medcare' ); ?>
+			</a>
+		</div>
+		<figure class="sps-figure">
+			<img
+				src="<?php echo esc_url( get_theme_mod( 'sps_recovery_image', sps_asset_img( 'taj-mahal.jpg' ) ) ); ?>"
+				alt="<?php esc_attr_e( 'Taj Mahal, Agra — a short trip from Delhi during recovery', 'sps-medcare' ); ?>"
+				loading="lazy"
+			/>
+		</figure>
 	</div>
 </section>
 

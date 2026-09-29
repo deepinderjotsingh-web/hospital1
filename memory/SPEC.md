@@ -79,3 +79,18 @@ section (hero, stats, countries with flags, 6 services, cost-comparison tables, 
 5-question FAQ, cross-links), 10 cost-guide posts, 16 image attachments (6 site photos from
 frontend/src/lib/site.ts IMAGES + 10 treatment photos, with alt text), featured images on every item,
 10 specialty categories and a ready-made "Primary Menu" of nav_menu_items.
+
+## WP deliverables v3 (theme + XML aligned)
+- Theme now ships 16 photos in `wordpress-theme/sps-medcare/assets/img/` (6 section + 10 per-treatment)
+  + placeholder.svg. helpers.php: sps_asset_img/sps_asset_img_path/sps_bundled_treatment_image; thumbnail
+  fallback = featured → bundled → placeholder. front-page hero/why/services/recovery images default to
+  bundled assets; new page-services.php template; functions.php auto-assigns Primary Menu / Footer Quick
+  Links via theme_mod_nav_menu_locations; setup seeder imports bundled photos into the media library,
+  sets featured images, creates both menus and the Countries We Serve page.
+- XML: treatments are now `sps_treatment` CPT items carrying `_sps_cost_india/_cost_west/_savings/
+  _hospital_stay/_stay_india/_success_rate/_procedures/_hospitals` + sps_specialty terms, pages carry
+  `_wp_page_template`, both menus are emitted, in-content images point at
+  /wp-content/themes/sps-medcare/assets/img/... (no hotlinking); attachments still sideload for the media library.
+- Verified by installing WordPress (sqlite) locally, activating the theme and running the real importer:
+  home/treatments/services/about/contact/countries/treatment/specialty/blog all 200 with images and no
+  remote image refs; php -l clean on all 30 theme files.

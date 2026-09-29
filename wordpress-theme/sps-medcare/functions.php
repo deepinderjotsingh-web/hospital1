@@ -164,3 +164,40 @@ function sps_medcare_nav_classes( $classes, $item ) {
 	return $classes;
 }
 add_filter( 'nav_menu_css_class', 'sps_medcare_nav_classes', 10, 2 );
+
+/**
+ * Auto-assign menus to their theme locations.
+ *
+ * A WordPress XML import creates the "Primary Menu" and "Footer Quick Links"
+ * menus but cannot assign them to a location, which left the header falling
+ * back to a plain page list. If a location is empty we look for the menu of the
+ * matching name/slug and use it.
+ *
+ * @param array $locations Menu locations.
+ * @return array
+ */
+function sps_medcare_auto_menu_locations( $locations ) {
+	$locations = is_array( $locations ) ? $locations : array();
+
+	$wanted = array(
+		'primary' => array( 'primary-menu', 'Primary Menu' ),
+		'footer'  => array( 'footer-quick-links', 'Footer Quick Links' ),
+	);
+
+	foreach ( $wanted as $location => $candidates ) {
+		if ( ! empty( $locations[ $location ] ) && get_term( $locations[ $location ], 'nav_menu' ) ) {
+			continue;
+		}
+
+		foreach ( $candidates as $candidate ) {
+			$menu = wp_get_nav_menu_object( $candidate );
+			if ( $menu && ! is_wp_error( $menu ) ) {
+				$locations[ $location ] = $menu->term_id;
+				break;
+			}
+		}
+	}
+
+	return $locations;
+}
+add_filter( 'theme_mod_nav_menu_locations', 'sps_medcare_auto_menu_locations' );

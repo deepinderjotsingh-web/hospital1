@@ -208,7 +208,89 @@ function sps_demo_pages() {
 			"<!-- wp:paragraph --><p>SPS Medcare was founded in 2011 to solve a problem we watched families face again and again: excellent, affordable treatment existed in India, but reaching it from abroad meant navigating hospitals, visas, language, travel and accommodation entirely alone.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Since then we have guided more than <strong>2,500 international patients</strong> from over <strong>12 countries</strong> through treatment in Delhi NCR — from routine laparoscopic surgery to liver transplants and paediatric bone marrow transplants.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2>Our Promise</h2><!-- /wp:heading -->\n<!-- wp:list --><ul><li><strong>Zero facilitation fee</strong> — our service to patients is free; we never mark up hospital bills</li><li><strong>Honest opinions</strong> — if travelling to India is not right for your case, we tell you</li><li><strong>Accredited hospitals only</strong> — JCI and NABH accredited partners with published outcomes</li><li><strong>One named coordinator</strong> from your first message until you land back home</li></ul><!-- /wp:list -->",
 		),
 		'contact'    => array( 'Contact Us', 'page-contact.php', '' ),
+		'countries-we-serve' => array(
+			'Countries We Serve',
+			'',
+			"<!-- wp:paragraph --><p>We assist patients and families travelling to India from across South Asia, the Middle East and Africa, with interpreters and coordinators familiar with each country's visa process and travel routes into Delhi.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul><li>🇧🇩 Bangladesh</li><li>🇳🇵 Nepal</li><li>🇱🇰 Sri Lanka</li><li>🇦🇪 United Arab Emirates</li><li>🇳🇬 Nigeria</li><li>🇦🇫 Afghanistan</li><li>🇮🇶 Iraq</li><li>🇲🇻 Maldives</li><li>🇴🇲 Oman</li><li>🇰🇪 Kenya</li><li>🇾🇪 Yemen</li><li>🇹🇿 Tanzania</li></ul><!-- /wp:list -->\n<!-- wp:heading --><h2>Languages We Support</h2><!-- /wp:heading -->\n<!-- wp:list --><ul><li>English</li><li>Arabic</li><li>Bengali</li><li>Dari / Pashto</li><li>French</li><li>Russian</li><li>Swahili</li></ul><!-- /wp:list -->",
+		),
 	);
+}
+
+/**
+ * Page slug => bundled image used as that page's featured image.
+ *
+ * @return array
+ */
+function sps_demo_page_images() {
+	return array(
+		'home'               => 'hero-consultation.jpg',
+		'treatments'         => 'doctor-patient.jpg',
+		'services'           => 'airport-pickup.jpg',
+		'about'              => 'patient-care.jpg',
+		'contact'            => 'patient-care.jpg',
+		'countries-we-serve' => 'taj-mahal.jpg',
+	);
+}
+
+/**
+ * Copy an image bundled with the theme into the media library (once) and
+ * return its attachment ID.
+ *
+ * @param string $relative Path inside /assets/img/, e.g. 'treatments/x.jpg'.
+ * @param string $title    Attachment title.
+ * @param string $alt      Alt text.
+ * @return int Attachment ID, or 0 on failure.
+ */
+function sps_import_bundled_image( $relative, $title, $alt ) {
+	$path = sps_asset_img_path( $relative );
+
+	if ( ! $path ) {
+		return 0;
+	}
+
+	// Already imported? Re-use it.
+	$existing = get_posts(
+		array(
+			'post_type'      => 'attachment',
+			'post_status'    => 'inherit',
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+			'meta_key'       => '_sps_bundled_image',
+			'meta_value'     => $relative,
+		)
+	);
+
+	if ( ! empty( $existing ) ) {
+		return (int) $existing[0];
+	}
+
+	require_once ABSPATH . 'wp-admin/includes/image.php';
+
+	$upload = wp_upload_bits( basename( $path ), null, file_get_contents( $path ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+	if ( ! empty( $upload['error'] ) ) {
+		return 0;
+	}
+
+	$attachment_id = wp_insert_attachment(
+		array(
+			'post_mime_type' => 'image/jpeg',
+			'post_title'     => $title,
+			'post_content'   => '',
+			'post_status'    => 'inherit',
+		),
+		$upload['file']
+	);
+
+	if ( ! $attachment_id || is_wp_error( $attachment_id ) ) {
+		return 0;
+	}
+
+	wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $upload['file'] ) );
+	update_post_meta( $attachment_id, '_wp_attachment_image_alt', $alt );
+	update_post_meta( $attachment_id, '_sps_bundled_image', $relative );
+
+	return (int) $attachment_id;
 }
 
 /**
@@ -244,9 +326,10 @@ function sps_demo_page() {
 
 		<p><?php esc_html_e( 'One click creates everything you need for a complete website:', 'sps-medcare' ); ?></p>
 		<ul class="ul-disc">
-			<li><?php esc_html_e( '5 pages — Home, Treatments, Services, About Us, Contact Us (with the right templates)', 'sps-medcare' ); ?></li>
+			<li><?php esc_html_e( '6 pages — Home, Treatments, Services, About Us, Countries We Serve, Contact Us (with the right templates)', 'sps-medcare' ); ?></li>
 			<li><?php esc_html_e( '10 specialties and 10 treatments with cost comparisons, procedures and hospitals', 'sps-medcare' ); ?></li>
-			<li><?php esc_html_e( 'A primary navigation menu, and Home set as the front page', 'sps-medcare' ); ?></li>
+			<li><?php esc_html_e( 'All 16 bundled photos imported into your media library and set as featured images', 'sps-medcare' ); ?></li>
+			<li><?php esc_html_e( 'Header and footer navigation menus, and Home set as the front page', 'sps-medcare' ); ?></li>
 		</ul>
 		<p><em><?php esc_html_e( 'Safe to run more than once — existing items are updated, never duplicated. Your own edits to page content are preserved.', 'sps-medcare' ); ?></em></p>
 
@@ -263,7 +346,7 @@ function sps_demo_page() {
 		<h2><?php esc_html_e( 'Next steps', 'sps-medcare' ); ?></h2>
 		<ol>
 			<li><?php esc_html_e( 'Appearance → Customize → SPS Medcare: set your phone, landline, email and address.', 'sps-medcare' ); ?></li>
-			<li><?php esc_html_e( 'Treatments → add a featured image to each treatment (recommended 1600×800).', 'sps-medcare' ); ?></li>
+			<li><?php esc_html_e( 'Treatments → replace any bundled photo with your own hospital photography (recommended 1600×800).', 'sps-medcare' ); ?></li>
 			<li><?php esc_html_e( 'Patient enquiries arrive under Enquiries and are emailed to the address set in the Customizer.', 'sps-medcare' ); ?></li>
 		</ol>
 	</div>
@@ -321,6 +404,15 @@ function sps_seed_demo_content() {
 				update_post_meta( $page_id, '_wp_page_template', $template );
 			}
 			$page_ids[ $slug ] = $page_id;
+
+			// Featured image from the photography bundled with the theme.
+			$sps_page_images = sps_demo_page_images();
+			if ( ! empty( $sps_page_images[ $slug ] ) && ! get_post_thumbnail_id( $page_id ) ) {
+				$att = sps_import_bundled_image( $sps_page_images[ $slug ], $title, $title . ' — SPS Medcare' );
+				if ( $att ) {
+					set_post_thumbnail( $page_id, $att );
+				}
+			}
 		}
 	}
 
@@ -368,23 +460,45 @@ function sps_seed_demo_content() {
 		foreach ( $treatment['meta'] as $key => $value ) {
 			update_post_meta( $post_id, '_sps_' . $key, $value );
 		}
+
+		// Featured photo bundled with the theme.
+		if ( ! get_post_thumbnail_id( $post_id ) ) {
+			$att = sps_import_bundled_image(
+				'treatments/' . $treatment['slug'] . '.jpg',
+				$treatment['title'],
+				$treatment['title'] . ' in India — SPS Medcare'
+			);
+			if ( $att ) {
+				set_post_thumbnail( $post_id, $att );
+			}
+		}
 	}
 
-	// Primary menu.
-	$menu_name = __( 'Primary Menu', 'sps-medcare' );
-	$menu      = wp_get_nav_menu_object( $menu_name );
+	// Navigation menus: Primary (header) and Footer Quick Links.
+	$sps_menu_pages = array( 'home', 'treatments', 'services', 'about', 'countries-we-serve', 'contact' );
+	$sps_locations  = get_theme_mod( 'nav_menu_locations', array() );
 
-	if ( ! $menu ) {
-		$menu_id = wp_create_nav_menu( $menu_name );
-	} else {
-		$menu_id = $menu->term_id;
-	}
+	foreach ( array(
+		'primary' => __( 'Primary Menu', 'sps-medcare' ),
+		'footer'  => __( 'Footer Quick Links', 'sps-medcare' ),
+	) as $sps_location => $menu_name ) {
 
-	if ( ! is_wp_error( $menu_id ) ) {
+		$menu = wp_get_nav_menu_object( $menu_name );
+
+		if ( ! $menu ) {
+			$menu_id = wp_create_nav_menu( $menu_name );
+		} else {
+			$menu_id = $menu->term_id;
+		}
+
+		if ( is_wp_error( $menu_id ) ) {
+			continue;
+		}
+
 		$items = wp_get_nav_menu_items( $menu_id );
 
 		if ( empty( $items ) ) {
-			foreach ( array( 'home', 'treatments', 'services', 'about', 'contact' ) as $order => $slug ) {
+			foreach ( $sps_menu_pages as $order => $slug ) {
 				if ( empty( $page_ids[ $slug ] ) ) {
 					continue;
 				}
@@ -404,10 +518,10 @@ function sps_seed_demo_content() {
 			}
 		}
 
-		$locations            = get_theme_mod( 'nav_menu_locations', array() );
-		$locations['primary'] = $menu_id;
-		set_theme_mod( 'nav_menu_locations', $locations );
+		$sps_locations[ $sps_location ] = $menu_id;
 	}
+
+	set_theme_mod( 'nav_menu_locations', $sps_locations );
 
 	flush_rewrite_rules();
 }
