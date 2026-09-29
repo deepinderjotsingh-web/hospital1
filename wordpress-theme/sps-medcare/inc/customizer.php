@@ -247,5 +247,16 @@ add_action( 'customize_register', 'sps_customize_register' );
  * @return string
  */
 function sps_stat( $index, $part ) {
-	return (string) get_theme_mod( 'sps_stat' . absint( $index ) . '_' . $part, '' );
+	$defaults = array(
+		1 => array( 'value' => '2,500+', 'label' => __( 'International patients guided', 'sps-medcare' ) ),
+		2 => array( 'value' => '12+', 'label' => __( 'Countries served', 'sps-medcare' ) ),
+		3 => array( 'value' => '60–90%', 'label' => __( 'Savings vs USA & UK', 'sps-medcare' ) ),
+		4 => array( 'value' => '24/7', 'label' => __( 'Patient desk on WhatsApp', 'sps-medcare' ) ),
+	);
+
+	$index   = absint( $index );
+	$default = isset( $defaults[ $index ][ $part ] ) ? $defaults[ $index ][ $part ] : '';
+	$value   = get_theme_mod( 'sps_stat' . $index . '_' . $part, $default );
+
+	return (string) ( '' === $value ? $default : $value );
 }

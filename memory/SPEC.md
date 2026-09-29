@@ -94,3 +94,9 @@ frontend/src/lib/site.ts IMAGES + 10 treatment photos, with alt text), featured 
 - Verified by installing WordPress (sqlite) locally, activating the theme and running the real importer:
   home/treatments/services/about/contact/countries/treatment/specialty/blog all 200 with images and no
   remote image refs; php -l clean on all 30 theme files.
+
+## Theme screenshot
+`wordpress-theme/sps-medcare/screenshot.png` (1200x900, ~215 KB) — captured from the theme actually
+rendering in a local WordPress install, shown in Appearance → Themes. While capturing it, fixed
+`sps_stat()` in inc/customizer.php which returned '' instead of the registered defaults, leaving the
+home page trust-stats band blank until the Customizer was saved.

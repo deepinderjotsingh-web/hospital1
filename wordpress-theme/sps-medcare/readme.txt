@@ -51,6 +51,8 @@ taxonomy-sps_specialty.php, single-sps_treatment.php, page-treatments.php,
 page-services.php, page-contact.php, search.php, searchform.php, sidebar.php,
 404.php, header.php, footer.php, template-parts/treatment-card.php
 
+screenshot.png (1200x900) is the theme preview shown in Appearance → Themes.
+
 == Changelog ==
 
 = 1.0.0 =
